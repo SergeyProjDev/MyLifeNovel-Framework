@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainMenu"
+    android:background="@drawable/menu_main_art">
+
+    <Button
+        android:id="@+id/newGameBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_scroll"
+        android:scaleType="fitXY"
+        android:text="N e w   G a m e"
+        app:layout_constraintBottom_toTopOf="@+id/continueBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="cursive"
+        android:textSize="16sp"
+        android:onClick="NewGame"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/continueBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_scroll"
+        android:scaleType="fitXY"
+        android:text="C o n t i n u e"
+        app:layout_constraintBottom_toTopOf="@+id/settingsBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="cursive"
+        android:textSize="16sp"
+        android:onClick="ContinueGame"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/settingsBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_scroll"
+        android:scaleType="fitXY"
+        android:text="S e t t i n g s"
+        app:layout_constraintBottom_toTopOf="@+id/exitBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="cursive"
+        android:textSize="16sp"
+        android:onClick="OpenSettings"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/exitBtn"
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/button_scroll"
+        android:scaleType="fitXY"
+        android:text="E x i t"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="cursive"
+        android:textSize="16sp"
+        android:onClick="ExitGame"
+        android:textColor="@color/black"/>
+
+    <ImageView
+        android:id="@+id/logoArt"
+        android:layout_width="300dp"
+        android:layout_height="220dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:scaleType="fitXY"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/menu_logo_art" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="200dp"
+        android:layout_height="75dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/title_about"
+        android:onClick="ShowAbout"/>
+
+    <ImageView
+        android:id="@+id/resume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/menu_resume_icon"
+        android:visibility="invisible"
+        android:onClick="ResumeGame"/>
+
+
+</android.support.constraint.ConstraintLayout>

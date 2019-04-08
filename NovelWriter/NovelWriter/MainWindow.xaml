@@ -15,11 +15,11 @@
         <ComboBox x:Name="Backgroung_CB" HorizontalAlignment="Left" Margin="129,154,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Backgroung_CB_SelectionChanged"/>
         <Label Content="Background" HorizontalAlignment="Left" Margin="40,150,0,0" VerticalAlignment="Top" FontSize="14"/>
         <CheckBox x:Name="Sprite_1_CB" Content="Sprite 1" HorizontalAlignment="Left" Margin="57,217,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_1_CB_Checked" Unchecked="Sprite_1_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_1" HorizontalAlignment="Left" Margin="129,213,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
+        <ComboBox x:Name="Sprite_1" HorizontalAlignment="Left" Margin="129,213,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_1_SelectionChanged"/>
         <CheckBox x:Name="Sprite_2_CB" Content="Sprite 2" HorizontalAlignment="Left" Margin="57,252,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_2_CB_Checked" Unchecked="Sprite_2_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_2" HorizontalAlignment="Left" Margin="129,248,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
+        <ComboBox x:Name="Sprite_2" HorizontalAlignment="Left" Margin="129,248,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_2_SelectionChanged"/>
         <CheckBox x:Name="Sprite_3_CB" Content="Sprite 3" HorizontalAlignment="Left" Margin="57,288,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_3_CB_Checked" Unchecked="Sprite_3_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_3" HorizontalAlignment="Left" Margin="129,284,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
+        <ComboBox x:Name="Sprite_3" HorizontalAlignment="Left" Margin="129,284,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_3_SelectionChanged"/>
         <CheckBox x:Name="Saying_CB" Content="Saying" HorizontalAlignment="Left" Margin="88,366,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Saying_CB_Checked" Unchecked="Saying_CB_Unchecked"/>
         <ComboBox x:Name="Saying" HorizontalAlignment="Left" Margin="154,361,0,0" VerticalAlignment="Top" Width="182" FontSize="14"/>
         <TextBox x:Name="Text_Input_TB" HorizontalAlignment="Left" Height="101" Margin="29,391,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="363" FontSize="14" MaxLines="5"/>
@@ -28,7 +28,10 @@
         <Image x:Name="Sprite_2_Output_Img" HorizontalAlignment="Left" Height="169" Margin="420,215,0,0" VerticalAlignment="Top" Width="119"/>
         <Image x:Name="Sprite_1_Output_Img" HorizontalAlignment="Left" Height="169" Margin="544,215,0,0" VerticalAlignment="Top" Width="119"/>
         <Image x:Name="Sprite_3_Output_Img" HorizontalAlignment="Left" Height="169" Margin="668,215,0,0" VerticalAlignment="Top" Width="119"/>
-        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick" IsReadOnly="True" ToolTip="Double Click to clean" Cursor="Hand"/>
+        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick" IsReadOnly="True" ToolTip="Double Click to clean" Cursor="Hand" VerticalScrollBarVisibility="Visible"/>
+        <TextBox x:Name="Add_Character_Name" HorizontalAlignment="Left" Height="23" Margin="110,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" AllowDrop="False" Visibility="Hidden"/>
+        <Button x:Name="Add_Characte_btn" Content="+" HorizontalAlignment="Left" Height="23" Margin="313,331,0,0" VerticalAlignment="Top" Width="23" FontSize="14" Click="Add_Characte_btn_Click" Visibility="Hidden"/>
+        <Button x:Name="Show_New_Character_Field" Content="Add Cheracter &gt;" HorizontalAlignment="Left" Margin="10,333,0,0" VerticalAlignment="Top" Width="95" Click="Show_New_Character_Field_Click"/>
 
     </Grid>
 </Window>

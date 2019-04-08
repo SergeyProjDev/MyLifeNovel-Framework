@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity"
+    android:background="@drawable/background_my_room"
+    android:onClick="next"
+    android:id="@+id/back">
+
+
+    <ImageView
+        android:id="@+id/sprite3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/sprite2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.8"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+    <ImageView
+        android:id="@+id/sprite1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="invisible"/>
+
+
+
+
+
+    <ImageView
+        android:id="@+id/background"
+        android:layout_width="232dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/text_back_menu"
+        android:scaleType="fitXY"
+        android:visibility="invisible"/>
+
+    <EditText
+        android:id="@+id/output"
+        android:layout_width="600dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/text_back"
+        android:focusable="false"
+        android:inputType="textMultiLine"
+        android:paddingLeft="20dp"
+        android:textColor="@color/text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/choiceSprite"
+        android:layout_width="600dp"
+        android:layout_height="280dp"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/output"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/choice_bg" />
+
+    <TextView
+        android:id="@+id/says"
+        android:layout_width="150dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/text_name_back"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintStart_toStartOf="@+id/output"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/showOrHideAll"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_menu"
+        android:onClick="showOrHide"/>
+
+    <ImageView
+        android:id="@+id/saveBtn"
+        android:layout_width="51dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/settingsBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_save"
+        android:visibility="invisible"
+        android:onClick="save"/>
+
+    <ImageView
+        android:id="@+id/settingsBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/homeBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_manage"
+        android:visibility="invisible"
+        android:onClick="settings"/>
+
+    <ImageView
+        android:id="@+id/homeBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toStartOf="@+id/showOrHideAll"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/icon_home"
+        android:visibility="invisible"
+        android:onClick="home"/>
+
+
+    <ImageView
+        android:id="@+id/choice1Sprite"
+        android:layout_width="400dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="96dp"
+        android:onClick="ChoiceOne"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/choiceSprite"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="@+id/choiceSprite"
+        app:layout_constraintTop_toTopOf="@+id/choiceSprite"
+        app:srcCompat="@drawable/button_scroll" />
+
+
+    <ImageView
+        android:id="@+id/choice2Sprite"
+        android:layout_width="400dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:onClick="ChoiceTwo"
+        android:scaleType="fitXY"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/choiceSprite"
+        app:layout_constraintHorizontal_bias="0.83"
+        app:layout_constraintStart_toStartOf="@+id/choiceSprite"
+        app:layout_constraintTop_toBottomOf="@+id/choice1Sprite"
+        app:srcCompat="@drawable/button_scroll" />
+
+
+    <TextView
+        android:id="@+id/choice1Text"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:inputType="textMultiLine"
+        android:onClick="ChoiceOne"
+        android:padding="4dp"
+        android:text="Choice 1"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/choice1Sprite"
+        app:layout_constraintEnd_toEndOf="@+id/choice1Sprite"
+        app:layout_constraintStart_toStartOf="@+id/choice1Sprite"
+        app:layout_constraintTop_toTopOf="@+id/choice1Sprite"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/choice2Text"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:inputType="textMultiLine"
+        android:padding="4dp"
+        android:text="Choice 2"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/choice2Sprite"
+        app:layout_constraintEnd_toEndOf="@+id/choice2Sprite"
+        app:layout_constraintStart_toStartOf="@+id/choice2Sprite"
+        app:layout_constraintTop_toTopOf="@+id/choice2Sprite"
+        android:onClick="ChoiceTwo"
+        android:visibility="invisible"/>
+
+</android.support.constraint.ConstraintLayout>

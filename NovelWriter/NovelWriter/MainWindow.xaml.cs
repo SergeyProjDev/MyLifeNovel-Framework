@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
@@ -19,7 +20,7 @@ namespace NovelWriter
 
         // Global variables
 
-        string DBAddress;
+        string DBAddress;  // "...\NovelFramework\My Life Novel\app\src\main\assets\MyLifeNovel.db"
         SQLiteConnection connection;
 
         Dictionary<int, string> music;
@@ -34,6 +35,7 @@ namespace NovelWriter
         public MainWindow() => InitializeComponent();
 
 
+
         //On Load - get DB address
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -43,6 +45,8 @@ namespace NovelWriter
             initComponents();
             Copy_Clean_UserResources();
         }
+
+
 
         private void initComponents()
         {
@@ -64,7 +68,8 @@ namespace NovelWriter
                 if (music[i] == "click") continue;
                 Music_CB.Items.Add(music[i]);
             }
-            for (int i = 1; i <= bgs.Count; i++) Backgroung_CB.Items.Add(bgs[i].Substring(11));
+            for (int i = 1; i <= bgs.Count; i++)
+                Backgroung_CB.Items.Add(bgs[i].Substring(11));
             for (int i = 1; i <= names.Count; i++)
             {
                 if (!Saying.Items.Contains(names[i]))
@@ -117,6 +122,8 @@ namespace NovelWriter
                 return elements;
             }
         }
+
+
 
         private void Update_DB_Btn_Click(object sender, RoutedEventArgs e)
         {
@@ -188,6 +195,7 @@ namespace NovelWriter
         }
 
 
+
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
@@ -210,6 +218,7 @@ namespace NovelWriter
 
         private void Saying_CB_Checked(object sender, RoutedEventArgs e) => Saying.IsEnabled = true;
         private void Saying_CB_Unchecked(object sender, RoutedEventArgs e) => Saying.IsEnabled = false;
+
 
 
         private void Copy_Clean_UserResources()
@@ -250,17 +259,76 @@ namespace NovelWriter
                 catch (Exception ex) { }
                 finally{
                     File.Delete(sourcefile);}
-
         }
+
 
 
         private void Backgroung_CB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
+            try{
+                string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\background_" + (sender as ComboBox).SelectedItem.ToString() + ".jpg";
+                Background_Output_Img.Source = new BitmapImage(new Uri(curAdr));
+            }catch (Exception) { }
+        }
+
+
+
+        private void Sprite_1_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
             try
             {
-                string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\background_" + Backgroung_CB.Text + ".jpg";
-                Background_Output_Img.Source = new BitmapImage(new Uri(curAdr));
-            } catch (Exception ex) { }
+                string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
+                Sprite_1_Output_Img.Source = new BitmapImage(new Uri(curAdr));
+            }catch (Exception) { }
+        }
+        private void Sprite_2_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
+                Sprite_2_Output_Img.Source = new BitmapImage(new Uri(curAdr));
+            }catch (Exception) { }
+        }
+        private void Sprite_3_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
+                Sprite_3_Output_Img.Source = new BitmapImage(new Uri(curAdr));
+            }catch (Exception) { }
+        }
+
+
+
+        private void Add_Characte_btn_Click(object sender, RoutedEventArgs e)
+        {
+            //add to db
+            connection.Open();
+            string query = $"INSERT INTO characters VALUES (null, \"{Add_Character_Name.Text}\");";
+            SQLiteCommand command = new SQLiteCommand(query, connection);
+            command.ExecuteNonQuery();
+            connection.Close();
+
+            //add to box
+            Saying.Items.Add(Add_Character_Name.Text);
+
+            //cls field
+            Add_Character_Name.Clear();
+        }
+
+
+
+        private void Show_New_Character_Field_Click(object sender, RoutedEventArgs e)
+        {
+            if (!Add_Characte_btn.IsVisible){
+                Add_Characte_btn.Visibility = Visibility.Visible;
+                Add_Character_Name.Visibility = Visibility.Visible;
+            } else
+            {
+                Add_Characte_btn.Visibility = Visibility.Hidden;
+                Add_Character_Name.Visibility = Visibility.Hidden;
+            }
+            
         }
     }
 }
