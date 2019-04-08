@@ -5,22 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NovelWriter"
         mc:Ignorable="d"
-        Title="My Life Novel" Height="600" Width="800"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="My Life Novel" Height="607" Width="808"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Button x:Name="Update_DB_Btn" Content="Update DB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="Update_DB_Btn_Click"/>
-        <TextBox PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" Margin="206,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14"/>
+        <Button x:Name="Update_DB_Btn" Content="Update DB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="Update_DB_Btn_Click" Margin="5,5,0,0"/>
+        <TextBox x:Name="Choice_Number_TB" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" Margin="206,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" Text="0"/>
         <Label Content="Choice №" HorizontalAlignment="Left" Margin="129,77,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.833,1.069"/>
         <ComboBox x:Name="Music_CB" HorizontalAlignment="Left" Margin="129,115,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
         <Label Content="Music" HorizontalAlignment="Left" Margin="78,111,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox x:Name="Backgroung_CB" HorizontalAlignment="Left" Margin="129,154,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
+        <ComboBox x:Name="Backgroung_CB" HorizontalAlignment="Left" Margin="129,154,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Backgroung_CB_SelectionChanged"/>
         <Label Content="Background" HorizontalAlignment="Left" Margin="40,150,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <CheckBox x:Name="Sprite_1_CB" Content="Sprite 1" HorizontalAlignment="Left" Margin="57,217,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" IsHitTestVisible="False"/>
+        <CheckBox x:Name="Sprite_1_CB" Content="Sprite 1" HorizontalAlignment="Left" Margin="57,217,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_1_CB_Checked" Unchecked="Sprite_1_CB_Unchecked"/>
         <ComboBox x:Name="Sprite_1" HorizontalAlignment="Left" Margin="129,213,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
-        <CheckBox x:Name="Sprite_2_CB" Content="Sprite 2" HorizontalAlignment="Left" Margin="57,252,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" IsHitTestVisible="False"/>
+        <CheckBox x:Name="Sprite_2_CB" Content="Sprite 2" HorizontalAlignment="Left" Margin="57,252,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_2_CB_Checked" Unchecked="Sprite_2_CB_Unchecked"/>
         <ComboBox x:Name="Sprite_2" HorizontalAlignment="Left" Margin="129,248,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
-        <CheckBox x:Name="Sprite_3_CB" Content="Sprite 3" HorizontalAlignment="Left" Margin="57,288,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" IsHitTestVisible="False"/>
+        <CheckBox x:Name="Sprite_3_CB" Content="Sprite 3" HorizontalAlignment="Left" Margin="57,288,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_3_CB_Checked" Unchecked="Sprite_3_CB_Unchecked"/>
         <ComboBox x:Name="Sprite_3" HorizontalAlignment="Left" Margin="129,284,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
-        <CheckBox x:Name="Saying_CB" Content="Saying" HorizontalAlignment="Left" Margin="88,366,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" IsHitTestVisible="False"/>
+        <CheckBox x:Name="Saying_CB" Content="Saying" HorizontalAlignment="Left" Margin="88,366,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Saying_CB_Checked" Unchecked="Saying_CB_Unchecked"/>
         <ComboBox x:Name="Saying" HorizontalAlignment="Left" Margin="154,361,0,0" VerticalAlignment="Top" Width="182" FontSize="14"/>
         <TextBox x:Name="Text_Input_TB" HorizontalAlignment="Left" Height="101" Margin="29,391,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="363" FontSize="14" MaxLines="5"/>
         <Button x:Name="Add_Btn" Content="Add" HorizontalAlignment="Left" Margin="88,499,0,0" VerticalAlignment="Top" Width="248" Height="64"/>
@@ -28,7 +28,7 @@
         <Image x:Name="Sprite_2_Output_Img" HorizontalAlignment="Left" Height="169" Margin="420,215,0,0" VerticalAlignment="Top" Width="119"/>
         <Image x:Name="Sprite_1_Output_Img" HorizontalAlignment="Left" Height="169" Margin="544,215,0,0" VerticalAlignment="Top" Width="119"/>
         <Image x:Name="Sprite_3_Output_Img" HorizontalAlignment="Left" Height="169" Margin="668,215,0,0" VerticalAlignment="Top" Width="119"/>
-        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick"/>
+        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick" IsReadOnly="True" ToolTip="Double Click to clean" Cursor="Hand"/>
 
     </Grid>
 </Window>
