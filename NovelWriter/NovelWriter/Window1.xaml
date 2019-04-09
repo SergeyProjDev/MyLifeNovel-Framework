@@ -1,0 +1,17 @@
+﻿<Window x:Class="NovelWriter.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:NovelWriter"
+        mc:Ignorable="d"
+        Title="Manual" Height="523.897" Width="651.103" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Choice Pattern:" HorizontalAlignment="Left" Margin="71,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.034,-0.283" FontSize="16"/>
+        <TextBox HorizontalAlignment="Left" Height="31" Margin="208,11,0,0" TextWrapping="Wrap" Text="#(n1)Choice1/(n2)Choice2" VerticalAlignment="Top" Width="360" FontSize="20"/>
+        <Label Content="GoTo Choice:" HorizontalAlignment="Left" Margin="71,59,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.034,-0.283" FontSize="16"/>
+        <TextBox HorizontalAlignment="Left" Height="31" Margin="208,58,0,0" TextWrapping="Wrap" Text="&lt;n&gt;TextAfterWhichGoToChoiceNubmer" VerticalAlignment="Top" Width="360" FontSize="20"/>
+        <Image Margin="56,107,56,10" Source="schems.png" Stretch="Fill"/>
+
+    </Grid>
+</Window>

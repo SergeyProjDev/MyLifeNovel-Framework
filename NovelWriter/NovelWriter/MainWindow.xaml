@@ -7,31 +7,112 @@
         mc:Ignorable="d"
         Title="My Life Novel" Height="607" Width="808"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
     <Grid>
-        <Button x:Name="Update_DB_Btn" Content="Update DB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="Update_DB_Btn_Click" Margin="5,5,0,0"/>
-        <TextBox x:Name="Choice_Number_TB" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" Margin="206,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" Text="0"/>
+        <Grid.Background>
+            <ImageBrush ImageSource="background.jpg" Opacity="0.75"/>
+        </Grid.Background>
+        <Button x:Name="Update_DB_Btn" Content="Update DB" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" Height="50" Click="Update_DB_Btn_Click" Margin="5,5,0,0" FontFamily="Yu Gothic UI" FontSize="14">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="9" Direction="311" Opacity="0.735"/>
+            </Button.Effect>
+        </Button>
+        <TextBox x:Name="Choice_Number_TB" PreviewTextInput="NumberValidationTextBox" HorizontalAlignment="Left" Height="23" Margin="206,83,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="14" Text="0">
+            <TextBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </TextBox.Effect>
+        </TextBox>
         <Label Content="Choice №" HorizontalAlignment="Left" Margin="129,77,0,0" VerticalAlignment="Top" FontSize="14" RenderTransformOrigin="0.833,1.069"/>
-        <ComboBox x:Name="Music_CB" HorizontalAlignment="Left" Margin="129,115,0,0" VerticalAlignment="Top" Width="241" FontSize="14"/>
+        <ComboBox x:Name="Music_CB" HorizontalAlignment="Left" Margin="129,115,0,0" VerticalAlignment="Top" Width="241" FontSize="14">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
         <Label Content="Music" HorizontalAlignment="Left" Margin="78,111,0,0" VerticalAlignment="Top" FontSize="14"/>
-        <ComboBox x:Name="Backgroung_CB" HorizontalAlignment="Left" Margin="129,154,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Backgroung_CB_SelectionChanged"/>
+        <ComboBox x:Name="Backgroung_CB" HorizontalAlignment="Left" Margin="129,154,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Backgroung_CB_SelectionChanged">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
         <Label Content="Background" HorizontalAlignment="Left" Margin="40,150,0,0" VerticalAlignment="Top" FontSize="14"/>
         <CheckBox x:Name="Sprite_1_CB" Content="Sprite 1" HorizontalAlignment="Left" Margin="57,217,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_1_CB_Checked" Unchecked="Sprite_1_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_1" HorizontalAlignment="Left" Margin="129,213,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_1_SelectionChanged"/>
+        <ComboBox x:Name="Sprite_1" HorizontalAlignment="Left" Margin="129,213,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_1_SelectionChanged">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
         <CheckBox x:Name="Sprite_2_CB" Content="Sprite 2" HorizontalAlignment="Left" Margin="57,252,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_2_CB_Checked" Unchecked="Sprite_2_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_2" HorizontalAlignment="Left" Margin="129,248,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_2_SelectionChanged"/>
+        <ComboBox x:Name="Sprite_2" HorizontalAlignment="Left" Margin="129,248,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_2_SelectionChanged">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
         <CheckBox x:Name="Sprite_3_CB" Content="Sprite 3" HorizontalAlignment="Left" Margin="57,288,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Sprite_3_CB_Checked" Unchecked="Sprite_3_CB_Unchecked"/>
-        <ComboBox x:Name="Sprite_3" HorizontalAlignment="Left" Margin="129,284,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_3_SelectionChanged"/>
+        <ComboBox x:Name="Sprite_3" HorizontalAlignment="Left" Margin="129,284,0,0" VerticalAlignment="Top" Width="241" FontSize="14" SelectionChanged="Sprite_3_SelectionChanged">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
         <CheckBox x:Name="Saying_CB" Content="Saying" HorizontalAlignment="Left" Margin="88,366,0,0" VerticalAlignment="Top" FontSize="14" FlowDirection="RightToLeft" Checked="Saying_CB_Checked" Unchecked="Saying_CB_Unchecked"/>
-        <ComboBox x:Name="Saying" HorizontalAlignment="Left" Margin="154,361,0,0" VerticalAlignment="Top" Width="182" FontSize="14"/>
-        <TextBox x:Name="Text_Input_TB" HorizontalAlignment="Left" Height="101" Margin="29,391,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="363" FontSize="14" MaxLines="5"/>
-        <Button x:Name="Add_Btn" Content="Add" HorizontalAlignment="Left" Margin="88,499,0,0" VerticalAlignment="Top" Width="248" Height="64"/>
-        <Image x:Name="Background_Output_Img" HorizontalAlignment="Left" Height="200" Margin="380,10,0,0" VerticalAlignment="Top" Width="400" Stretch="Fill"/>
-        <Image x:Name="Sprite_2_Output_Img" HorizontalAlignment="Left" Height="169" Margin="420,215,0,0" VerticalAlignment="Top" Width="119"/>
-        <Image x:Name="Sprite_1_Output_Img" HorizontalAlignment="Left" Height="169" Margin="544,215,0,0" VerticalAlignment="Top" Width="119"/>
-        <Image x:Name="Sprite_3_Output_Img" HorizontalAlignment="Left" Height="169" Margin="668,215,0,0" VerticalAlignment="Top" Width="119"/>
-        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick" IsReadOnly="True" ToolTip="Double Click to clean" Cursor="Hand" VerticalScrollBarVisibility="Visible"/>
-        <TextBox x:Name="Add_Character_Name" HorizontalAlignment="Left" Height="23" Margin="110,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" AllowDrop="False" Visibility="Hidden"/>
-        <Button x:Name="Add_Characte_btn" Content="+" HorizontalAlignment="Left" Height="23" Margin="313,331,0,0" VerticalAlignment="Top" Width="23" FontSize="14" Click="Add_Characte_btn_Click" Visibility="Hidden"/>
-        <Button x:Name="Show_New_Character_Field" Content="Add Cheracter &gt;" HorizontalAlignment="Left" Margin="10,333,0,0" VerticalAlignment="Top" Width="95" Click="Show_New_Character_Field_Click"/>
+        <ComboBox x:Name="Saying" HorizontalAlignment="Left" Margin="154,361,0,0" VerticalAlignment="Top" Width="182" FontSize="14">
+            <ComboBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </ComboBox.Effect>
+        </ComboBox>
+        <TextBox x:Name="Text_Input_TB" HorizontalAlignment="Left" Height="101" Margin="29,391,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="363" FontSize="14" MaxLines="5">
+            <TextBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Button x:Name="Add_Btn" Content="Add" HorizontalAlignment="Left" Margin="88,499,0,0" VerticalAlignment="Top" Width="248" Height="64" Click="Add_Btn_Click">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </Button.Effect>
+        </Button>
+        <Image x:Name="Background_Output_Img" HorizontalAlignment="Left" Height="200" Margin="380,10,0,0" VerticalAlignment="Top" Width="400" Stretch="Fill">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695" ShadowDepth="9"/>
+            </Image.Effect>
+        </Image>
+        <Image x:Name="Sprite_2_Output_Img" HorizontalAlignment="Left" Height="169" Margin="407,215,0,0" VerticalAlignment="Top" Width="119">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695" ShadowDepth="9"/>
+            </Image.Effect>
+        </Image>
+        <Image x:Name="Sprite_1_Output_Img" HorizontalAlignment="Left" Height="169" Margin="531,215,0,0" VerticalAlignment="Top" Width="119">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695" ShadowDepth="9"/>
+            </Image.Effect>
+        </Image>
+        <Image x:Name="Sprite_3_Output_Img" HorizontalAlignment="Left" Height="169" Margin="655,215,0,0" VerticalAlignment="Top" Width="119">
+            <Image.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695" ShadowDepth="9"/>
+            </Image.Effect>
+        </Image>
+        <TextBox x:Name="Text_Output_TB" HorizontalAlignment="Left" Height="174" Margin="397,389,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="387" MouseDoubleClick="Text_Output_TB_MouseDoubleClick" IsReadOnly="True" ToolTip="Double Click to clean" Cursor="Hand" VerticalScrollBarVisibility="Visible">
+            <TextBox.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </TextBox.Effect>
+        </TextBox>
+        <TextBox x:Name="Add_Character_Name" HorizontalAlignment="Left" Height="23" Margin="110,331,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="203" AllowDrop="False" Visibility="Hidden">
+            <TextBox.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695"/>
+            </TextBox.Effect>
+        </TextBox>
+        <Button x:Name="Add_Characte_btn" Content="+" HorizontalAlignment="Left" Height="23" Margin="313,331,0,0" VerticalAlignment="Top" Width="23" FontSize="14" Click="Add_Characte_btn_Click" Visibility="Hidden">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20" Opacity="0.695"/>
+            </Button.Effect>
+        </Button>
+        <Button x:Name="Show_New_Character_Field" Content="Add Cheracter &gt;" HorizontalAlignment="Left" Margin="10,333,0,0" VerticalAlignment="Top" Width="95" Click="Show_New_Character_Field_Click">
+            <Button.Effect>
+                <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
+            </Button.Effect>
+        </Button>
+        
+        <Button x:Name="Manual_btn" HorizontalAlignment="Left" Margin="157,5,0,0" VerticalAlignment="Top" Width="163" Height="50" FontFamily="Viner Hand ITC" FontSize="30" Click="Button_Click">
+            <DockPanel>
+                <Label VerticalAlignment="center" Content="Manual"/>
+            </DockPanel>
+        </Button>
 
     </Grid>
 </Window>

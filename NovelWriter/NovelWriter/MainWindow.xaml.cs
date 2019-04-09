@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Data.SQLite;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Path = System.IO.Path;
 
@@ -28,7 +30,7 @@ namespace NovelWriter
         Dictionary<int, string> names;
         Dictionary<int, string> sprites;
 
-
+        public int? musicStarted;
 
 
 
@@ -99,7 +101,8 @@ namespace NovelWriter
                 Sprite_2.SelectedIndex = 0;
                 Sprite_3.SelectedIndex = 0;
                 Saying.SelectedIndex = 0;
-            } catch (Exception) { }
+            }
+            catch (Exception) { }
 
             Dictionary<int, string> getIntStrData(string table)
             {
@@ -230,45 +233,59 @@ namespace NovelWriter
 
             string backgrounds = userSources + @"\Backgrounds";
             string drawable = programSources + @"\drawable";
-            foreach (FileInfo f in new DirectoryInfo(backgrounds).GetFiles()) File.Move(f.FullName, f.FullName.Replace(f.Name, "background_"+f.Name));
+            foreach (FileInfo f in new DirectoryInfo(backgrounds).GetFiles()) File.Move(f.FullName, f.FullName.Replace(f.Name, "background_" + f.Name));
             foreach (string sourcefile in Directory.GetFiles(backgrounds))
-                try {
-                    File.Move(sourcefile, Path.Combine(drawable, Path.GetFileName(sourcefile)));}
+                try
+                {
+                    File.Move(sourcefile, Path.Combine(drawable, Path.GetFileName(sourcefile)));
+                }
                 catch (Exception ex) { }
-                finally{
-                    File.Delete(sourcefile);}
+                finally
+                {
+                    File.Delete(sourcefile);
+                }
 
 
 
             string sprites = userSources + @"\Sprites";
             foreach (FileInfo f in new DirectoryInfo(sprites).GetFiles()) File.Move(f.FullName, f.FullName.Replace(f.Name, "sprite_" + f.Name));
             foreach (string sourcefile in Directory.GetFiles(sprites))
-                try{
-                    File.Move(sourcefile, Path.Combine(drawable, Path.GetFileName(sourcefile)));}
+                try
+                {
+                    File.Move(sourcefile, Path.Combine(drawable, Path.GetFileName(sourcefile)));
+                }
                 catch (Exception ex) { }
-                finally{
-                    File.Delete(sourcefile);}
+                finally
+                {
+                    File.Delete(sourcefile);
+                }
 
 
 
             string mus = userSources + @"\Music";
             string raw = programSources + @"\raw";
             foreach (string sourcefile in Directory.GetFiles(mus))
-                try {
-                    File.Move(sourcefile, Path.Combine(raw, Path.GetFileName(sourcefile)));}
+                try
+                {
+                    File.Move(sourcefile, Path.Combine(raw, Path.GetFileName(sourcefile)));
+                }
                 catch (Exception ex) { }
-                finally{
-                    File.Delete(sourcefile);}
+                finally
+                {
+                    File.Delete(sourcefile);
+                }
         }
 
 
 
         private void Backgroung_CB_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
-            try{
+            try
+            {
                 string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\background_" + (sender as ComboBox).SelectedItem.ToString() + ".jpg";
                 Background_Output_Img.Source = new BitmapImage(new Uri(curAdr));
-            }catch (Exception) { }
+            }
+            catch (Exception) { }
         }
 
 
@@ -279,7 +296,8 @@ namespace NovelWriter
             {
                 string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
                 Sprite_1_Output_Img.Source = new BitmapImage(new Uri(curAdr));
-            }catch (Exception) { }
+            }
+            catch (Exception) { }
         }
         private void Sprite_2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -287,7 +305,8 @@ namespace NovelWriter
             {
                 string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
                 Sprite_2_Output_Img.Source = new BitmapImage(new Uri(curAdr));
-            }catch (Exception) { }
+            }
+            catch (Exception) { }
         }
         private void Sprite_3_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -295,7 +314,8 @@ namespace NovelWriter
             {
                 string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
                 Sprite_3_Output_Img.Source = new BitmapImage(new Uri(curAdr));
-            }catch (Exception) { }
+            }
+            catch (Exception) { }
         }
 
 
@@ -320,15 +340,111 @@ namespace NovelWriter
 
         private void Show_New_Character_Field_Click(object sender, RoutedEventArgs e)
         {
-            if (!Add_Characte_btn.IsVisible){
+            if (!Add_Characte_btn.IsVisible)
+            {
                 Add_Characte_btn.Visibility = Visibility.Visible;
                 Add_Character_Name.Visibility = Visibility.Visible;
-            } else
+            }
+            else
             {
                 Add_Characte_btn.Visibility = Visibility.Hidden;
                 Add_Character_Name.Visibility = Visibility.Hidden;
             }
-            
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Window1 win2 = new Window1();
+            win2.Show();
+        }
+
+        private void Add_Btn_Click(object sender, RoutedEventArgs e)
+        {
+            //choice
+            int choice = int.Parse(Choice_Number_TB.Text);
+
+            //music_id
+            int? music_id = null;
+            foreach (var key in from entry in music where entry.Value == Music_CB.Text select entry.Key)
+                music_id = key;
+
+            //background_id
+            int backGR_id = -1;
+            foreach (var key in from entry in bgs where entry.Value == "background_"+Backgroung_CB.Text select entry.Key)
+                backGR_id = key;
+
+            //sprites_id
+            string drawSprites = "";
+            if ((bool)Sprite_1_CB.IsChecked)
+            {
+                foreach (var key in from entry in sprites where entry.Value == Sprite_1.Text select entry.Key)
+                    drawSprites += key;
+            }
+            if ((bool)Sprite_2_CB.IsChecked)
+            {
+                foreach (var key in from entry in sprites where entry.Value == Sprite_2.Text select entry.Key)
+                    drawSprites += " " + key;
+            }
+            if ((bool)Sprite_3_CB.IsChecked)
+            {
+                foreach (var key in from entry in sprites where entry.Value == Sprite_3.Text select entry.Key)
+                    drawSprites += " " + key;
+            }
+
+            //saying_id
+            int? saying_character_id = null;
+            if ((bool)Saying_CB.IsChecked)
+                foreach (var key in from entry in names where entry.Value == Saying.Text select entry.Key)
+                    saying_character_id = key;
+
+            //text content
+            string text = Text_Input_TB.Text;
+
+            if (musicStarted != music_id) musicStarted = music_id;
+            else music_id = null;
+
+            AddToDatabase(choice, text, saying_character_id, drawSprites, music_id, backGR_id);
+            AddToLog(Saying.Text, Text_Input_TB.Text);
+
+            Text_Input_TB.Text = "";
+        }
+
+        void AddToDatabase(int choice, string text, int? saying_character_id, string drawSprites, int? music_id, int backGR_id)
+        {
+            if (backGR_id == -1) { MessageBox.Show("Bg = -1 Error"); return; }
+
+            string[] value = new string[7];
+
+            value[1] = choice.ToString();
+            value[2] = "\"" + text + "\"";
+            if (saying_character_id == null) value[3] = "null"; else value[3] = saying_character_id.ToString();
+            if (drawSprites == "") value[4] = "null"; else value[4] = "\"" + drawSprites + "\"";
+            if (music_id == null) value[5] = "null"; else value[5] = music_id.ToString();
+            value[6] = backGR_id.ToString();
+
+            string query = @"INSERT INTO day1 VALUES(
+                                    null,
+                                    " + value[1] + @",
+                                    " + value[2] + @",
+                                    " + value[3] + @",
+                                    " + value[4] + @",
+                                    " + value[5] + @",
+                                    " + value[6] + @"
+                                );";
+
+            try { connection.Open(); } catch (Exception) { }
+
+            SQLiteCommand insertSQL = new SQLiteCommand(query, connection);
+            insertSQL.ExecuteNonQuery();
+        }
+
+        void AddToLog(string saying, string text)
+        {
+            if (saying != "") saying += ": ";
+            if (!(bool)Saying_CB.IsChecked) saying = "";
+
+            Text_Output_TB.Text += saying + text + Environment.NewLine;
         }
     }
 }

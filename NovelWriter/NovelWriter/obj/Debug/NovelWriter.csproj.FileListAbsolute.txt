@@ -23,3 +23,5 @@ C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\bin\Debug\EntityF
 C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\bin\Debug\System.Data.SQLite.xml
 C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\bin\Debug\System.Data.SQLite.dll.config
 C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\obj\Debug\NovelWriter.csproj.CopyComplete
+C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\obj\Debug\Window1.g.cs
+C:\Users\Sergey\Desktop\NovelFramework\NovelWriter\NovelWriter\obj\Debug\Window1.baml
