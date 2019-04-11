@@ -64,10 +64,12 @@ fastlane/screenshots
 fastlane/test_output
 fastlane/readme.md
 
-#music
-.mp3
+# music
+*.mp3
 
-#backgrounds & sprites
+# backgrounds & sprites
 background_*.jpg
 sprite_*.png
 
+# gitkeep
+!/Sources/*
