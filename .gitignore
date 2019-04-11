@@ -72,4 +72,6 @@ background_*.jpg
 sprite_*.png
 
 # gitkeep
-!Sources/*
+!Sources/Backgrounds/.gitkeep
+!Sources/Sprites/.gitkeep
+!Sources/Music/.gitkeep
