@@ -70,8 +70,3 @@ fastlane/readme.md
 # backgrounds & sprites
 background_*.jpg
 sprite_*.png
-
-# gitkeep
-!Sources/Backgrounds/.gitkeep
-!Sources/Sprites/.gitkeep
-!Sources/Music/.gitkeep
