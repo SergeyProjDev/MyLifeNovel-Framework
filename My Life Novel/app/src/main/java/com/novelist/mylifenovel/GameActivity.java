@@ -1,5 +1,7 @@
 package com.novelist.mylifenovel;
 
+import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,6 +14,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 
 public class GameActivity extends AppCompatActivity {
@@ -21,11 +27,15 @@ public class GameActivity extends AppCompatActivity {
     ImageView save;
     ImageView toMenu;
     ImageView settings;
+    ImageView backShot;
+    ImageView hideUI;
+    ImageView burgerMenu;
 
     //database controls
     SQLiteDatabase db;
     DatabaseHelper databaseHelper;
     Cursor queryRes;
+    String currentQuery;
 
     //output controls
     EditText output;
@@ -47,6 +57,10 @@ public class GameActivity extends AppCompatActivity {
 
     //class helper
     ComponentWorker screen;
+
+    //ui shown flag
+    boolean UIComponentsVisible = false;
+
 
 
 
@@ -77,9 +91,24 @@ public class GameActivity extends AppCompatActivity {
         }
 
         //default queryRes content
-        applyNewQuery("select * from day1;");
+        currentQuery = "select * from day1;";
+        applyNewQuery(currentQuery);
         queryRes.moveToFirst();
         queryRes.moveToPrevious();
+
+        //if game loaded (deserialize)
+        try{
+            if (getIntent().getExtras().getBoolean("load save")){
+                FileInputStream fis = getBaseContext().openFileInput("data.dat");
+                ObjectInputStream is = new ObjectInputStream(fis);
+                DataClass d = (DataClass) is.readObject();
+                is.close();
+                fis.close();
+                applyNewQuery(d.sqlquery);
+                queryRes.move(d.counter);
+            }
+        } catch (Exception e){}
+
 
         //show first shot
         next(null);
@@ -88,25 +117,27 @@ public class GameActivity extends AppCompatActivity {
 
 
     public void next(View view) {
+
+        if (UIComponentsVisible) {ShowElements(); return;}
+
         try {
             queryRes.moveToNext();
 
-            String text        = queryRes.getString(2);
-            String speaker_id  = queryRes.getString(3);
+            String text = queryRes.getString(2);
+            String speaker_id = queryRes.getString(3);
             String drawSprites = queryRes.getString(4);
-            String music_id    = queryRes.getString(5);
-            String backgr_id   = queryRes.getString(6);
+            String music_id = queryRes.getString(5);
+            String backgr_id = queryRes.getString(6);
 
             screen.putText   (text,       this);
             screen.putSays   (speaker_id, this);
             screen.putSprites(drawSprites,this);
             screen.putBackgr (backgr_id,  this);
-            screen.putMusic  (music_id,    this);
+            screen.putMusic  (music_id,   this);
 
-        } catch (Exception ex){
-            Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
-        }
+        } catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();}
     }
+
 
 
     //buttons events
@@ -128,9 +159,24 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+
+
     public void save(View view) {
         new General().ClickEvent(this);
-        Toast.makeText(this, "Not implemented Save", Toast.LENGTH_SHORT).show();
+
+        DataClass d = new DataClass();
+        d.sqlquery = currentQuery;
+        d.counter = queryRes.getPosition();
+        try{
+            FileOutputStream fos = getBaseContext().openFileOutput("data.dat", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(d);
+            os.close();
+            fos.close();
+            Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT).show();
+            showOrHide(null);
+        }
+        catch (Exception ex){ Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show(); }
     }
 
     public void settings(View view) {
@@ -145,17 +191,22 @@ public class GameActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+
+
     public void onBackPressed() {
         home(null);
     }
 
 
+
     public void ChoiceOne(View view) {
-        applyNewQuery("select * from day1 where choice = "+choiceFirst+";");
+        currentQuery = "select * from day1 where choice = "+choiceFirst+";";
+        applyNewQuery(currentQuery);
         afterChoice();
     }
     public void ChoiceTwo(View view) {
-        applyNewQuery("select * from day1 where choice = "+choiceSecond+";");
+        currentQuery = "select * from day1 where choice = "+choiceSecond+";";
+        applyNewQuery(currentQuery);
         afterChoice();
     }
     private void afterChoice(){
@@ -172,9 +223,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+
     public void applyNewQuery(String querySQL){
         queryRes =  db.rawQuery(querySQL, null);
     }
+
 
 
     public void BackShot(View view) {
@@ -191,6 +244,7 @@ public class GameActivity extends AppCompatActivity {
             super.onPause();
             MusicPlayer.mediaPlayer.stop();
             MusicPlayer.mediaPlayer.release();
+            save(null);
         }catch (Exception ex){}
     }
 
@@ -201,6 +255,32 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
+    public void HideElements(View view) {
+        output.setVisibility(View.INVISIBLE);
+        says.setVisibility(View.INVISIBLE);
+
+        menuBackground.setVisibility(View.INVISIBLE);
+        burgerMenu.setVisibility(View.INVISIBLE);
+        save.setVisibility(View.INVISIBLE);
+        toMenu.setVisibility(View.INVISIBLE);
+        settings.setVisibility(View.INVISIBLE);
+
+        hideUI.setVisibility(View.INVISIBLE);
+        backShot.setVisibility(View.INVISIBLE);
+
+        UIComponentsVisible = true;
+    }
+    public void ShowElements() {
+        output.setVisibility(View.VISIBLE);
+        says.setVisibility(View.VISIBLE);
+
+        burgerMenu.setVisibility(View.VISIBLE);
+
+        hideUI.setVisibility(View.VISIBLE);
+        backShot.setVisibility(View.VISIBLE);
+
+        UIComponentsVisible = false;
+    }
 }
 
 
@@ -222,13 +302,19 @@ class ComponentWorker {
         ga.toMenu = ga.findViewById(R.id.homeBtn);
         ga.settings = ga.findViewById(R.id.settingsBtn);
         ga.menuBackground = ga.findViewById(R.id.background);
+        ga.hideUI = ga.findViewById(R.id.hideElements);
+        ga.backShot = ga.findViewById(R.id.backShot);
+        ga.burgerMenu = ga.findViewById(R.id.showOrHideAll);
     }
 
 
 
     //DB values
     public void putText(String str, GameActivity ga){
+        ga.hideUI.setVisibility(View.VISIBLE);
         if ((str.charAt(0)) =='#') {
+            ga.hideUI.setVisibility(View.INVISIBLE);
+
             ga.choiceSprite.setVisibility(View.VISIBLE);
 
             String first = str.substring(1, str.indexOf("/"));
@@ -277,7 +363,6 @@ class ComponentWorker {
         ga.says.setText(name);
     }
 
-
     public void putSprites(String str, GameActivity ga) {
         if (str == null) {
             ga.sprite1.setVisibility(View.INVISIBLE);
@@ -313,7 +398,6 @@ class ComponentWorker {
         }
     }
 
-
     public void putBackgr(String str, GameActivity ga){
         Cursor queryResult;
         int id, imageResource_id;
@@ -332,7 +416,6 @@ class ComponentWorker {
         }
     }
 
-
     private int musicPlaying;
     public void putMusic(String str, GameActivity ga){
         int id = Integer.parseInt(str);
@@ -350,7 +433,6 @@ class ComponentWorker {
 
         MusicPlayer.startMusic(res_id, ga);
     }
-
     public void startPlayingMusic(GameActivity ga){
         Cursor queryResult =  ga.db.rawQuery("select * from music where id ="+musicPlaying+";", null);
         queryResult.move(1);

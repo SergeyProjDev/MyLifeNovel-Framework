@@ -33,7 +33,7 @@
         android:layout_marginRight="8dp"
         android:background="@drawable/button_scroll"
         android:scaleType="fitXY"
-        android:text="C o n t i n u e"
+        android:text="L O A D   S A V E"
         app:layout_constraintBottom_toTopOf="@+id/settingsBtn"
         app:layout_constraintEnd_toEndOf="parent"
         android:fontFamily="cursive"

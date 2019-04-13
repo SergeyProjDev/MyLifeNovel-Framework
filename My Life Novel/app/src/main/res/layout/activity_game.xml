@@ -59,7 +59,7 @@
     <EditText
         android:id="@+id/output"
         android:layout_width="600dp"
-        android:layout_height="75dp"
+        android:layout_height="83dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
@@ -67,14 +67,15 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/text_back"
         android:focusable="false"
+        android:gravity="top"
         android:inputType="textMultiLine"
         android:paddingLeft="10dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
         android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:paddingTop="10dp"
-        android:gravity="top" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <ImageView
@@ -93,7 +94,7 @@
         android:id="@+id/says"
         android:layout_width="150dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="70dp"
         android:layout_marginLeft="16dp"
         android:layout_marginStart="16dp"
         android:background="@drawable/text_name_back"
@@ -221,7 +222,7 @@
         android:visibility="invisible"/>
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/backShot"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -231,5 +232,19 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/go_back_shot"
         android:onClick="BackShot"/>
+
+    <ImageView
+        android:id="@+id/hideElements"
+        android:layout_width="25dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:onClick="HideElements"
+        app:layout_constraintBottom_toBottomOf="@+id/output"
+        app:layout_constraintEnd_toEndOf="@+id/output"
+        app:layout_constraintHorizontal_bias="0.7"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/output"
+        app:layout_constraintTop_toBottomOf="@+id/choiceSprite"
+        app:srcCompat="@android:drawable/arrow_down_float" />
 
 </android.support.constraint.ConstraintLayout>

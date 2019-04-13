@@ -38,8 +38,9 @@ public class MainMenu extends AppCompatActivity{
 
     public void ContinueGame(View view) {
         new General().ClickEvent(this);
-
-        Toast.makeText(this, "Not implemented serialization get", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(this, GameActivity.class);
+        i.putExtra("load save", true);
+        startActivity(i);
     }
 
 

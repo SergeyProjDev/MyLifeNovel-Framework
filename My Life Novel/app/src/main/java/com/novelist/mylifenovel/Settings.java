@@ -1,8 +1,10 @@
 package com.novelist.mylifenovel;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class Settings extends AppCompatActivity {
@@ -12,6 +14,10 @@ public class Settings extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         new General().MakeFullscreen(this);
+
+        small = findViewById(R.id.small);
+        medium = findViewById(R.id.medium);
+        big = findViewById(R.id.big);
     }
 
 
@@ -38,5 +44,31 @@ public class Settings extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         MusicPlayer.startMusic(R.raw.menu_music, this);
+    }
+
+
+
+    TextView small, medium, big;
+
+    public void SmallText(View view) {
+        small.setTypeface(null, Typeface.BOLD);
+        medium.setTypeface(null, Typeface.NORMAL);
+        big.setTypeface(null, Typeface.NORMAL);
+
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+    }
+    public void MediumText(View view) {
+        small.setTypeface(null, Typeface.NORMAL);
+        medium.setTypeface(null, Typeface.BOLD);
+        big.setTypeface(null, Typeface.NORMAL);
+
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
+    }
+    public void BigText(View view) {
+        small.setTypeface(null, Typeface.NORMAL);
+        medium.setTypeface(null, Typeface.NORMAL);
+        big.setTypeface(null, Typeface.BOLD);
+
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
     }
 }
