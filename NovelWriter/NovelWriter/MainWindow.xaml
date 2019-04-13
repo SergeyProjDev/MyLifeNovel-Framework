@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NovelWriter"
         mc:Ignorable="d"
-        Title="My Life Novel" Height="607" Width="808"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+        Title="My Life Novel" Height="607" Width="808"  WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded" Closing="Window_Closing">
     <Grid>
         <Grid.Background>
             <ImageBrush ImageSource="background.jpg" Opacity="0.75"/>

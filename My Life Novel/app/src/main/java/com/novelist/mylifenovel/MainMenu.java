@@ -22,7 +22,7 @@ public class MainMenu extends AppCompatActivity{
                 findViewById(R.id.resume).setVisibility(View.VISIBLE);
         } catch (Exception e){ }
 
-        //try{ MusicPlayer.startMusic(R.raw.menu_music, this); }catch (Exception ex){}
+        try{ MusicPlayer.startMusic(R.raw.menu_music, this); }catch (Exception ex){}
     }
 
 
@@ -66,7 +66,6 @@ public class MainMenu extends AppCompatActivity{
         super.onBackPressed();
     }
 
-/*
     @Override
     protected void onPause() {
         try{
@@ -75,5 +74,11 @@ public class MainMenu extends AppCompatActivity{
             MusicPlayer.mediaPlayer.release();
         }catch (Exception ex){}
     }
-*/
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MusicPlayer.startMusic(R.raw.menu_music, this);
+    }
+
 }

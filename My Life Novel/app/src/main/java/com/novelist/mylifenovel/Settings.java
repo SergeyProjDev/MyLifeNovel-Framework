@@ -24,4 +24,19 @@ public class Settings extends AppCompatActivity {
         new General().ClickEvent(this);
         super.onBackPressed();
     }
+
+    @Override
+    protected void onPause() {
+        try{
+            super.onPause();
+            MusicPlayer.mediaPlayer.stop();
+            MusicPlayer.mediaPlayer.release();
+        }catch (Exception ex){}
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        MusicPlayer.startMusic(R.raw.menu_music, this);
+    }
 }

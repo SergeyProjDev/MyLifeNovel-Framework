@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".GameActivity"
-    android:background="@drawable/background_my_room"
     android:onClick="next"
     android:id="@+id/back">
 
@@ -69,11 +68,13 @@
         android:background="@drawable/text_back"
         android:focusable="false"
         android:inputType="textMultiLine"
-        android:paddingLeft="20dp"
+        android:paddingLeft="10dp"
         android:textColor="@color/text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:paddingTop="10dp"
+        android:gravity="top" />
 
 
     <ImageView
@@ -218,5 +219,17 @@
         app:layout_constraintTop_toTopOf="@+id/choice2Sprite"
         android:onClick="ChoiceTwo"
         android:visibility="invisible"/>
+
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/go_back_shot"
+        android:onClick="BackShot"/>
 
 </android.support.constraint.ConstraintLayout>

@@ -176,6 +176,15 @@ public class GameActivity extends AppCompatActivity {
         queryRes =  db.rawQuery(querySQL, null);
     }
 
+
+    public void BackShot(View view) {
+        queryRes.moveToPrevious();
+        queryRes.moveToPrevious();
+        next(view);
+    }
+
+
+
     @Override
     protected void onPause() {
         try{
@@ -184,6 +193,14 @@ public class GameActivity extends AppCompatActivity {
             MusicPlayer.mediaPlayer.release();
         }catch (Exception ex){}
     }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        screen.startPlayingMusic(this);
+    }
+
+
 }
 
 
@@ -316,18 +333,29 @@ class ComponentWorker {
     }
 
 
+    private int musicPlaying;
     public void putMusic(String str, GameActivity ga){
-        if (str == null)
-            return;
+        int id = Integer.parseInt(str);
+
+        if (id == musicPlaying) return;
 
         Cursor queryResult;
-        int id = Integer.parseInt(str);
 
         queryResult =  ga.db.rawQuery("select * from music where id ="+id+";", null);
         queryResult.move(1);
         String res = queryResult.getString(1);
         int res_id  = ga.getResources().getIdentifier(res, "raw", ga.getPackageName());
 
+        musicPlaying = id;
+
+        MusicPlayer.startMusic(res_id, ga);
+    }
+
+    public void startPlayingMusic(GameActivity ga){
+        Cursor queryResult =  ga.db.rawQuery("select * from music where id ="+musicPlaying+";", null);
+        queryResult.move(1);
+        String res = queryResult.getString(1);
+        int res_id  = ga.getResources().getIdentifier(res, "raw", ga.getPackageName());
         MusicPlayer.startMusic(res_id, ga);
     }
 

@@ -443,5 +443,28 @@ namespace NovelWriter
 
             Text_Output_TB.Text += saying + text + Environment.NewLine;
         }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string drw = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets"))+@"\res\drawable";
+            string raw = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\raw";
+
+            Delgitkeep(drw);
+            Delgitkeep(raw);
+
+            void Delgitkeep(string address)
+            {
+                DirectoryInfo di = new DirectoryInfo(drw);
+                FileInfo[] files = di.GetFiles("*.gitkeep").Where(p => p.Extension == ".gitkeep").ToArray();
+                foreach (FileInfo file in files)
+                    try
+                    {
+                        file.Attributes = FileAttributes.Normal;
+                        File.Delete(file.FullName);
+                    }
+                    catch (Exception ex){ MessageBox.Show(ex.ToString()); }
+                File.Delete(address+@"\.gitkeep");
+            }
+        }
     }
 }
