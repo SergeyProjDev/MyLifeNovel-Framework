@@ -30,7 +30,7 @@ namespace NovelWriter
         Dictionary<int, string> names;
         Dictionary<int, string> sprites;
 
-        public int? musicStarted;
+
 
 
 
@@ -401,9 +401,6 @@ namespace NovelWriter
             //text content
             string text = Text_Input_TB.Text;
 
-            if (musicStarted != music_id) musicStarted = music_id;
-            else music_id = null;
-
             AddToDatabase(choice, text, saying_character_id, drawSprites, music_id, backGR_id);
             AddToLog(Saying.Text, Text_Input_TB.Text);
 
@@ -420,7 +417,7 @@ namespace NovelWriter
             value[2] = "\"" + text + "\"";
             if (saying_character_id == null) value[3] = "null"; else value[3] = saying_character_id.ToString();
             if (drawSprites == "") value[4] = "null"; else value[4] = "\"" + drawSprites + "\"";
-            if (music_id == null) value[5] = "null"; else value[5] = music_id.ToString();
+            if (music_id == null) MessageBox.Show("Music == null"); else value[5] = music_id.ToString();
             value[6] = backGR_id.ToString();
 
             string query = @"INSERT INTO day1 VALUES(

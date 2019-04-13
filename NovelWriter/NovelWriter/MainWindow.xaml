@@ -62,7 +62,13 @@
                 <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
             </TextBox.Effect>
         </TextBox>
-        <Button x:Name="Add_Btn" Content="Add" HorizontalAlignment="Left" Margin="88,499,0,0" VerticalAlignment="Top" Width="248" Height="64" Click="Add_Btn_Click">
+        <Button x:Name="Add_Btn" Content="Add" HorizontalAlignment="Left" Margin="88,499,0,0" VerticalAlignment="Top" Width="248" Height="64" Click="Add_Btn_Click" FontSize="34" FontFamily="Vesna">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF64D8F1" Offset="0"/>
+                    <GradientStop Color="#FFF0F750" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
             <Button.Effect>
                 <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
             </Button.Effect>
@@ -107,7 +113,7 @@
                 <DropShadowEffect BlurRadius="20" Direction="317" Opacity="0.76" ShadowDepth="6"/>
             </Button.Effect>
         </Button>
-        
+
         <Button x:Name="Manual_btn" HorizontalAlignment="Left" Margin="157,5,0,0" VerticalAlignment="Top" Width="163" Height="50" FontFamily="Viner Hand ITC" FontSize="30" Click="Button_Click">
             <DockPanel>
                 <Label VerticalAlignment="center" Content="Manual"/>
