@@ -1,13 +1,19 @@
 package com.novelist.mylifenovel;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
+
+import java.io.ObjectInputStream;
 
 public class General extends AppCompatActivity {
+
+    int vol = 100;
 
     public void MakeFullscreen(Activity myActivityReference){
         myActivityReference.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -24,9 +30,8 @@ public class General extends AppCompatActivity {
 
             myActivityReference.getWindow().getDecorView().setSystemUiVisibility(flags);
         } else
-            myActivityReference.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
-
+            myActivityReference.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                    WindowManager.LayoutParams.FLAG_FULLSCREEN);
     }
 
     public static boolean isImmersiveAvailable() {
@@ -36,7 +41,9 @@ public class General extends AppCompatActivity {
     public void ClickEvent(final Activity myActivityReference){
         new Thread(new Runnable() {
             public void run() {
-                MediaPlayer.create(myActivityReference.getApplicationContext(), R.raw.click).start();
+                MediaPlayer mp = MediaPlayer.create(myActivityReference.getApplicationContext(), R.raw.click);
+                mp.setVolume(vol, vol);
+                mp.start();
             }
         }).start();
 

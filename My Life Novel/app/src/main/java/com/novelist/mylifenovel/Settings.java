@@ -1,11 +1,16 @@
 package com.novelist.mylifenovel;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class Settings extends AppCompatActivity {
 
@@ -23,7 +28,7 @@ public class Settings extends AppCompatActivity {
 
     public void SaveSettings(View view) {
         new General().ClickEvent(this);
-        Toast.makeText(this, "Not implemented Save", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show();
     }
 
     public void GoBack(View view) {

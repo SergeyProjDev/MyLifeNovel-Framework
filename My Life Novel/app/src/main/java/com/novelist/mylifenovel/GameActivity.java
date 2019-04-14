@@ -1,6 +1,5 @@
 package com.novelist.mylifenovel;
 
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -22,7 +20,7 @@ import java.io.ObjectOutputStream;
 
 public class GameActivity extends AppCompatActivity {
 
-    //menu btns
+    /* menu btns */
     ImageView menuBackground;
     ImageView save;
     ImageView toMenu;
@@ -31,13 +29,13 @@ public class GameActivity extends AppCompatActivity {
     ImageView hideUI;
     ImageView burgerMenu;
 
-    //database controls
+    /* database controls */
     SQLiteDatabase db;
     DatabaseHelper databaseHelper;
     Cursor queryRes;
     String currentQuery;
 
-    //output controls
+    /* output controls */
     EditText output;
     TextView says;
     ImageView sprite1;
@@ -48,18 +46,19 @@ public class GameActivity extends AppCompatActivity {
     ImageView choice2Sprite; TextView choice2Text;
     ConstraintLayout backGr;
 
-    //menu enable or disable
+    /* menu enable/disable */
     boolean show = false;
 
-    //with choices works
+    /* with choices works */
     int choiceFirst, choiceSecond;
     int bgFlag;
 
-    //class helper
+    /* class helper */
     ComponentWorker screen;
 
-    //ui shown flag
+    /* ui shown flag */
     boolean UIComponentsVisible = false;
+
 
 
 
@@ -68,49 +67,37 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        new General().MakeFullscreen(this); //fullscreen
 
-        //fullscreen
-        new General().MakeFullscreen(this);
-
-        //click sound disable
-        findViewById(R.id.back).setSoundEffectsEnabled(false);
-
-        //init helper class
+        // init helper class & init components
         screen = new ComponentWorker();
-
-        //initialization controls
         screen.initComponents(this);
 
-        //try connect to db
+        // try connect to db
         try {
             databaseHelper = new DatabaseHelper(getApplicationContext());
             databaseHelper.create_db();
             db = databaseHelper.open();
-        } catch (Exception ex) {
-            Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
-        }
+        } catch (Exception ex) { Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show(); }
 
-        //default queryRes content
+        // start new game
         currentQuery = "select * from day1;";
-        applyNewQuery(currentQuery);
+        applyQuery(currentQuery);
         queryRes.moveToFirst();
         queryRes.moveToPrevious();
 
-        //if game loaded (deserialize)
+        // if game loaded (deserialize)
         try{
             if (getIntent().getExtras().getBoolean("load save")){
-                FileInputStream fis = getBaseContext().openFileInput("data.dat");
-                ObjectInputStream is = new ObjectInputStream(fis);
-                DataClass d = (DataClass) is.readObject();
-                is.close();
-                fis.close();
-                applyNewQuery(d.sqlquery);
+                DataSQLClass d = (DataSQLClass) new ObjectInputStream(getBaseContext()
+                                                 .openFileInput("data.dat")).readObject();
+                applyQuery(d.sqlquery);
                 queryRes.move(d.counter);
             }
-        } catch (Exception e){}
+        }catch (Exception e){}
 
 
-        //show first shot
+        // show first shot
         next(null);
     }
 
@@ -164,7 +151,7 @@ public class GameActivity extends AppCompatActivity {
     public void save(View view) {
         new General().ClickEvent(this);
 
-        DataClass d = new DataClass();
+        DataSQLClass d = new DataSQLClass();
         d.sqlquery = currentQuery;
         d.counter = queryRes.getPosition();
         try{
@@ -173,7 +160,6 @@ public class GameActivity extends AppCompatActivity {
             os.writeObject(d);
             os.close();
             fos.close();
-            Toast.makeText(this, "Game saved!", Toast.LENGTH_SHORT).show();
             showOrHide(null);
         }
         catch (Exception ex){ Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show(); }
@@ -201,12 +187,12 @@ public class GameActivity extends AppCompatActivity {
 
     public void ChoiceOne(View view) {
         currentQuery = "select * from day1 where choice = "+choiceFirst+";";
-        applyNewQuery(currentQuery);
+        applyQuery(currentQuery);
         afterChoice();
     }
     public void ChoiceTwo(View view) {
         currentQuery = "select * from day1 where choice = "+choiceSecond+";";
-        applyNewQuery(currentQuery);
+        applyQuery(currentQuery);
         afterChoice();
     }
     private void afterChoice(){
@@ -224,7 +210,7 @@ public class GameActivity extends AppCompatActivity {
 
 
 
-    public void applyNewQuery(String querySQL){
+    public void applyQuery(String querySQL){
         queryRes =  db.rawQuery(querySQL, null);
     }
 
@@ -272,7 +258,7 @@ public class GameActivity extends AppCompatActivity {
     }
     public void ShowElements() {
         output.setVisibility(View.VISIBLE);
-        says.setVisibility(View.VISIBLE);
+        if (!says.getText().equals("")) says.setVisibility(View.VISIBLE);
 
         burgerMenu.setVisibility(View.VISIBLE);
 
@@ -338,7 +324,7 @@ class ComponentWorker {
         }
         if ((str.charAt(0)) == '<') {
             int choice = Integer.parseInt(str.substring(str.indexOf("<") + 1, str.indexOf(">")));
-            ga.applyNewQuery("select * from day1 where choice = " + choice + ";");
+            ga.applyQuery("select * from day1 where choice = " + choice + ";");
 
             str = str.substring(str.indexOf(">") + 1);
         }
