@@ -15,7 +15,8 @@ public class AboutActivity extends AppCompatActivity {
 
 
     public void GoBack(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         super.onBackPressed();
     }
 
@@ -25,7 +26,7 @@ public class AboutActivity extends AppCompatActivity {
             super.onPause();
             MusicPlayer.mediaPlayer.stop();
             MusicPlayer.mediaPlayer.release();
-        }catch (Exception ex){}
+        }catch (Exception ignored){}
     }
 
     @Override

@@ -9,11 +9,21 @@ public class MusicPlayer extends Activity {
     static MediaPlayer mediaPlayer;
 
     public static void startMusic(int id, Activity ga){
-        try {mediaPlayer.stop();}catch(Exception ex){}
+
+        try {
+            mediaPlayer.stop();
+        }catch(Exception ignored){}
+
         try{
             mediaPlayer = MediaPlayer.create(ga.getApplicationContext(), id);
             mediaPlayer.setLooping(true);
             mediaPlayer.start();
-        }catch (Exception ex){}
+
+            //mediaPlayer.setVolume(
+            //      new DataSettingsClass().volumeMusic,
+            //      new DataSettingsClass().volumeMusic
+            // );
+        }catch (Exception ignored){}
+
     }
 }

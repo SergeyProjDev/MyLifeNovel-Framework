@@ -15,7 +15,7 @@ import java.io.OutputStream;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static String DB_PATH;
     private static String DB_NAME = "MyLifeNovel.db";
-    private static final int SCHEMA = 1; // версия базы данных
+    private static final int SCHEMA = 1; // DB version
 
     private Context myContext;
 
@@ -25,43 +25,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         DB_PATH =context.getFilesDir().getPath() + DB_NAME;
     }
 
-    @Override
-    public void onCreate(SQLiteDatabase db) {
-    }
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion,  int newVersion) {
-    }
+
+    @Override public void onCreate(SQLiteDatabase db) { }
+    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion,  int newVersion) { }
 
     void create_db(){
-        InputStream myInput = null;
-        OutputStream myOutput = null;
         try {
             File file = new File(DB_PATH);
-            //if (!file.exists()) { //existence
-                this.getReadableDatabase();
-                //получаем локальную бд как поток
-                myInput = myContext.getAssets().open(DB_NAME);
-                // Путь к новой бд
-                String outFileName = DB_PATH;
+            this.getReadableDatabase();
+            // DB in thread getted
+            InputStream myInput = myContext.getAssets().open(DB_NAME);
+            // path to new DB
+            String outFileName = DB_PATH;
 
-                // Открываем пустую бд
-                myOutput = new FileOutputStream(outFileName);
+            // byte copy data to new DB
+            OutputStream myOutput = new FileOutputStream(outFileName);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0)
+                myOutput.write(buffer, 0, length);
 
-                // побайтово копируем данные
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = myInput.read(buffer)) > 0) {
-                    myOutput.write(buffer, 0, length);
-                }
-
-                myOutput.flush();
-                myOutput.close();
-                myInput.close();
-            //}
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
         }
-        catch(IOException ex){
-            Log.d("DatabaseHelper", ex.getMessage());
-        }
+        catch(Exception ignored){ }
     }
     public SQLiteDatabase open()throws SQLException {
         return SQLiteDatabase.openDatabase(DB_PATH, null, SQLiteDatabase.OPEN_READWRITE);

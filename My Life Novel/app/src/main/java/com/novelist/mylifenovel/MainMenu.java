@@ -24,24 +24,27 @@ public class MainMenu extends AppCompatActivity{
         setContentView(R.layout.activity_main_menu);
         new General().MakeFullscreen(this);
 
+
         // draw resume png
         try{
             if (getIntent().getExtras().getBoolean("from game"))
                 findViewById(R.id.resume).setVisibility(View.VISIBLE);
         } catch (Exception ignored){ }
 
+
         // start music
         try {
             MusicPlayer.startMusic(R.raw.menu_music, this);
         } catch (Exception ignored){}
 
-        // enable loadBtn
+
+        // enable loadBtn (if file with saves don`t exist)
         Button load = findViewById(R.id.continueBtn);
         try{
             new ObjectInputStream(getBaseContext().openFileInput("data.dat")).readObject();
             load.setEnabled(true);
             load.setTextColor(Color.BLACK);
-        } catch (Exception e){
+        } catch (Exception ignored){
             load.setEnabled(false);
             load.setTextColor(Color.GRAY);
         }
@@ -50,14 +53,16 @@ public class MainMenu extends AppCompatActivity{
 
 
     public void NewGame(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         startActivity(new Intent(this, GameActivity.class));
     }
 
 
 
     public void ContinueGame(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); //click sound
+
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra("load save", true);
         startActivity(i);
@@ -66,7 +71,8 @@ public class MainMenu extends AppCompatActivity{
 
 
     public void OpenSettings(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         startActivity(new Intent(this, Settings.class));
     }
 
@@ -74,20 +80,23 @@ public class MainMenu extends AppCompatActivity{
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void ExitGame(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         this.finishAffinity();
     }
 
 
 
     public void ShowAbout(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         startActivity(new Intent(this, AboutActivity.class));
     }
 
 
     public void ResumeGame(View view) {
-        new General().ClickEvent(this);
+        new General().ClickEvent(this); // click sound
+
         super.onBackPressed();
     }
 
