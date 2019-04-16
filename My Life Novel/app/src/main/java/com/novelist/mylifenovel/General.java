@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 
+import static android.media.ToneGenerator.MAX_VOLUME;
+
 
 public class General extends AppCompatActivity {
 
@@ -34,7 +36,8 @@ public class General extends AppCompatActivity {
         new Thread(new Runnable() {
             public void run() {
                 MediaPlayer mp = MediaPlayer.create(myActivityReference.getApplicationContext(), R.raw.click);
-                mp.setVolume(new DataSettingsClass().volumeClick, new DataSettingsClass().volumeClick);
+                float volume = (float) (1 - (Math.log(MAX_VOLUME - new DataSettingsClass().getClickVolumeLvl(myActivityReference)) / Math.log(MAX_VOLUME)));
+                mp.setVolume(volume, volume);
                 mp.start();
             }
         }).start();
