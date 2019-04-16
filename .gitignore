@@ -70,3 +70,6 @@ fastlane/readme.md
 # backgrounds & sprites
 background_*.jpg
 sprite_*.png
+
+# DB with content
+MyLifeNovel.db
