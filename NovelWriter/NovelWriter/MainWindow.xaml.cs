@@ -81,9 +81,9 @@ namespace NovelWriter
             {
                 if (sprites[i] != "")
                 {
-                    Sprite_1.Items.Add(sprites[i]);
-                    Sprite_2.Items.Add(sprites[i]);
-                    Sprite_3.Items.Add(sprites[i]);
+                    Sprite_1.Items.Add(sprites[i].Substring(7));
+                    Sprite_2.Items.Add(sprites[i].Substring(7));
+                    Sprite_3.Items.Add(sprites[i].Substring(7));
                 }
             }
 
@@ -297,7 +297,7 @@ namespace NovelWriter
                 string curAdr = DBAddress.Substring(0, DBAddress.IndexOf(@"\assets")) + @"\res\drawable\sprite_" + (sender as ComboBox).SelectedItem.ToString() + ".png";
                 Sprite_1_Output_Img.Source = new BitmapImage(new Uri(curAdr));
             }
-            catch (Exception) { }
+            catch (Exception ex) { MessageBox.Show(ex.ToString()); }
         }
         private void Sprite_2_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -378,17 +378,17 @@ namespace NovelWriter
             string drawSprites = "";
             if ((bool)Sprite_1_CB.IsChecked)
             {
-                foreach (var key in from entry in sprites where entry.Value == Sprite_1.Text select entry.Key)
+                foreach (var key in from entry in sprites where entry.Value == "sprite_" + Sprite_1.Text select entry.Key)
                     drawSprites += key;
             }
             if ((bool)Sprite_2_CB.IsChecked)
             {
-                foreach (var key in from entry in sprites where entry.Value == Sprite_2.Text select entry.Key)
+                foreach (var key in from entry in sprites where entry.Value == "sprite_" + Sprite_2.Text select entry.Key)
                     drawSprites += " " + key;
             }
             if ((bool)Sprite_3_CB.IsChecked)
             {
-                foreach (var key in from entry in sprites where entry.Value == Sprite_3.Text select entry.Key)
+                foreach (var key in from entry in sprites where entry.Value == "sprite_" + Sprite_3.Text select entry.Key)
                     drawSprites += " " + key;
             }
 
