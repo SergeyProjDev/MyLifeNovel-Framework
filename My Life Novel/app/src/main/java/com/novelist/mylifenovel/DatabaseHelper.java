@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+
     private static String DB_PATH;
     private static String DB_NAME = "MyLifeNovel.db";
     private static final int SCHEMA = 1; // DB version
@@ -24,7 +25,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         this.myContext=context;
         DB_PATH =context.getFilesDir().getPath() + DB_NAME;
     }
-
 
     @Override public void onCreate(SQLiteDatabase db) { }
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion,  int newVersion) { }

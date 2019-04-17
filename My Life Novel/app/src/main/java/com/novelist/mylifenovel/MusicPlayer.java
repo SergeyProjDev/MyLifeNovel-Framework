@@ -19,10 +19,9 @@ public class MusicPlayer extends Activity {
         try{
             mediaPlayer = MediaPlayer.create(activity.getApplicationContext(), id);
             mediaPlayer.setLooping(true);
-            float volume = (float) (1 - (Math.log(MAX_VOLUME - new DataSettingsClass().getVolumeLvl(activity)) / Math.log(MAX_VOLUME)));
+            float volume = (float) (1 - (Math.log(MAX_VOLUME - new DataSettingsClass().getMusicVol(activity)) / Math.log(MAX_VOLUME)));
             mediaPlayer.setVolume(volume, volume);
             mediaPlayer.start();
         }catch (Exception ignored){}
-
     }
 }

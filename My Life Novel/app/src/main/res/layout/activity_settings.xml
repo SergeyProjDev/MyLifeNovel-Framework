@@ -135,7 +135,8 @@
         app:layout_constraintEnd_toStartOf="@+id/volume"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/textView5"
+        android:textStyle="italic"/>
 
     <SeekBar
         android:id="@+id/volume2"
@@ -166,6 +167,7 @@
         android:textColor="@color/colorPrimaryDark"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:textStyle="italic"/>
 
 </android.support.constraint.ConstraintLayout>

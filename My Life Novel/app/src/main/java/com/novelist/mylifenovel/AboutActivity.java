@@ -16,9 +16,9 @@ public class AboutActivity extends AppCompatActivity {
 
     public void GoBack(View view) {
         new General().ClickEvent(this); // click sound
-
         super.onBackPressed();
     }
+
 
     @Override
     protected void onPause() {
@@ -34,4 +34,5 @@ public class AboutActivity extends AppCompatActivity {
         super.onResume();
         MusicPlayer.startMusic(R.raw.menu_music, this);
     }
+
 }

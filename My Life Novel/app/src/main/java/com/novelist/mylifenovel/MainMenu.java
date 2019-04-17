@@ -8,22 +8,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class MainMenu extends AppCompatActivity{
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         new General().MakeFullscreen(this);
-
 
         // draw resume png
         try{
@@ -54,7 +48,6 @@ public class MainMenu extends AppCompatActivity{
 
     public void NewGame(View view) {
         new General().ClickEvent(this); // click sound
-
         startActivity(new Intent(this, GameActivity.class));
     }
 
@@ -62,7 +55,6 @@ public class MainMenu extends AppCompatActivity{
 
     public void ContinueGame(View view) {
         new General().ClickEvent(this); //click sound
-
         Intent i = new Intent(this, GameActivity.class);
         i.putExtra("load save", true);
         startActivity(i);
@@ -71,8 +63,6 @@ public class MainMenu extends AppCompatActivity{
 
 
     public void OpenSettings(View view) {
-        new General().ClickEvent(this); // click sound
-
         startActivity(new Intent(this, Settings.class));
     }
 
@@ -81,7 +71,6 @@ public class MainMenu extends AppCompatActivity{
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void ExitGame(View view) {
         new General().ClickEvent(this); // click sound
-
         this.finishAffinity();
     }
 
@@ -89,16 +78,15 @@ public class MainMenu extends AppCompatActivity{
 
     public void ShowAbout(View view) {
         new General().ClickEvent(this); // click sound
-
         startActivity(new Intent(this, AboutActivity.class));
     }
 
 
     public void ResumeGame(View view) {
         new General().ClickEvent(this); // click sound
-
         super.onBackPressed();
     }
+
 
 
     @Override
@@ -116,5 +104,4 @@ public class MainMenu extends AppCompatActivity{
         super.onResume();
         MusicPlayer.startMusic(R.raw.menu_music, this);
     }
-
 }

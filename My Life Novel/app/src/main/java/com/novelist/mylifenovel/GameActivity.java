@@ -121,7 +121,7 @@ public class GameActivity extends AppCompatActivity {
             screen.putText   (text,       this);
             screen.putSays   (speaker_id, this);
             screen.putSprites(drawSprites,this);
-            screen.putBackgr (backgr_id,  this);
+            screen.putBG     (backgr_id,  this);
             screen.putMusic  (music_id,   this);
 
         } catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();}
@@ -201,7 +201,7 @@ public class GameActivity extends AppCompatActivity {
         afterChoice();
     }
     private void afterChoice(){
-        // here choice UIcomponents become invisible
+        // here choice UI components become invisible
 
         choice1Sprite.setVisibility(View.INVISIBLE);
         choice2Sprite.setVisibility(View.INVISIBLE);
@@ -257,6 +257,7 @@ public class GameActivity extends AppCompatActivity {
         UIComponentsVisible = false;
     }
 
+
     @Override
     protected void onPause() {
         try{
@@ -271,5 +272,7 @@ public class GameActivity extends AppCompatActivity {
     protected void onResume(){
         super.onResume();
         screen.startPlayingMusic(this);
+        screen.initComponents(this);
     }
+
 }

@@ -40,11 +40,15 @@ public class SettingsDynamicVolumeChange {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                float volume = (float) (1 - (Math.log(MAX_VOLUME - seekBar.getProgress()) / Math.log(MAX_VOLUME)));
-                MediaPlayer mp = MediaPlayer.create(activity, R.raw.click);
-                mp.setVolume(volume, volume);
-                mp.start();
+                makeClick(seekBar);
             }
         });
+    }
+
+    public void makeClick(SeekBar seekBar){
+        float volume = (float) (1 - (Math.log(MAX_VOLUME - seekBar.getProgress()) / Math.log(MAX_VOLUME)));
+        MediaPlayer mp = MediaPlayer.create(activity, R.raw.click);
+        mp.setVolume(volume, volume);
+        mp.start();
     }
 }

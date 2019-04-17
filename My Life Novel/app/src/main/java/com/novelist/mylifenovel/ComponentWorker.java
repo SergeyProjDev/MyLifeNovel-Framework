@@ -1,6 +1,7 @@
 package com.novelist.mylifenovel;
 
 import android.database.Cursor;
+import android.util.TypedValue;
 import android.view.View;
 
 class ComponentWorker {
@@ -24,11 +25,17 @@ class ComponentWorker {
         ga.hideUI = ga.findViewById(R.id.hideElements);
         ga.backShot = ga.findViewById(R.id.backShot);
         ga.burgerMenu = ga.findViewById(R.id.showOrHideAll);
+
+        // init text sizes
+        ga.output.setTextSize(TypedValue.COMPLEX_UNIT_SP, new DataSettingsClass().getTextSize(ga));
+        ga.says.setTextSize(TypedValue.COMPLEX_UNIT_SP, new DataSettingsClass().getTextSize(ga));
     }
 
 
     public void putText(String str, GameActivity ga){
         ga.hideUI.setVisibility(View.VISIBLE);
+
+        // choice `#(n1)/(n2)`
         if ((str.charAt(0)) =='#') {
             ga.hideUI.setVisibility(View.INVISIBLE);
 
@@ -53,12 +60,15 @@ class ComponentWorker {
             ga.backGr.setEnabled(false);
             return;
         }
+
+        // GoTo choice `<n>`
         if ((str.charAt(0)) == '<') {
             int choice = Integer.parseInt(str.substring(str.indexOf("<") + 1, str.indexOf(">")));
             ga.applyQuery("select * from "+GameActivity.day+" where choice = " + choice + ";");
 
             str = str.substring(str.indexOf(">") + 1);
         }
+
         ga.output.setText(str);
     }
 
@@ -89,12 +99,14 @@ class ComponentWorker {
             return;
         }
 
-        if (str.matches("[0-9]+")) { //one sprite
+        // one sprite
+        if (str.matches("[0-9]+")) {
             ga.sprite1.setVisibility(View.VISIBLE);
             ga.sprite1.setBackgroundResource(parseHelper(str, ga));
         }
 
-        if (str.matches("[0-9]+[ ][0-9]+")) { //two sprites
+        // two sprites
+        if (str.matches("[0-9]+[ ][0-9]+")) {
             ga.sprite1.setVisibility(View.VISIBLE);
             ga.sprite2.setVisibility(View.VISIBLE);
 
@@ -103,7 +115,8 @@ class ComponentWorker {
             ga.sprite2.setBackgroundResource(parseHelper(str, ga));
         }
 
-        if (str.matches("[0-9]+[ ][0-9]+[ ][0-9]+")) { //three sprites
+        // three sprites
+        if (str.matches("[0-9]+[ ][0-9]+[ ][0-9]+")) {
             ga.sprite1.setVisibility(View.VISIBLE);
             ga.sprite2.setVisibility(View.VISIBLE);
             ga.sprite3.setVisibility(View.VISIBLE);
@@ -116,21 +129,21 @@ class ComponentWorker {
         }
     }
 
-    public void putBackgr(String str, GameActivity ga){
+    public void putBG(String str, GameActivity ga){
         Cursor queryResult;
-        int id, imageResource_id;
+        int id, imgRes_id;
         String image;
 
         id = Integer.parseInt(str);
         if (id != ga.bgFlag){ // don`t update bg
             ga.bgFlag = id;
-
-            queryResult =  ga.db.rawQuery("select * from backgrounds where id ="+id+";", null);
+            String query = "select * from backgrounds where id ="+id+";";
+            queryResult =  ga.db.rawQuery(query, null);
             queryResult.move(1);
             image = queryResult.getString(1);
-            imageResource_id  = ga.getResources().getIdentifier(image, "drawable", ga.getPackageName());
+            imgRes_id = ga.getResources().getIdentifier(image,"drawable",ga.getPackageName());
 
-            ga.backGr.setBackgroundResource(imageResource_id);
+            ga.backGr.setBackgroundResource(imgRes_id);
         }
     }
 
@@ -142,7 +155,8 @@ class ComponentWorker {
 
         Cursor queryResult;
 
-        queryResult =  ga.db.rawQuery("select * from music where id ="+id+";", null);
+        String query = "select * from music where id ="+id+";";
+        queryResult =  ga.db.rawQuery(query, null);
         queryResult.move(1);
         String res = queryResult.getString(1);
         int res_id  = ga.getResources().getIdentifier(res, "raw", ga.getPackageName());
@@ -153,7 +167,8 @@ class ComponentWorker {
     }
 
     public void startPlayingMusic(GameActivity ga){
-        Cursor queryResult =  ga.db.rawQuery("select * from music where id ="+musicPlaying+";", null);
+        String query = "select * from music where id ="+musicPlaying+";";
+        Cursor queryResult =  ga.db.rawQuery(query, null);
         queryResult.move(1);
         String res = queryResult.getString(1);
         int res_id  = ga.getResources().getIdentifier(res, "raw", ga.getPackageName());
@@ -164,17 +179,18 @@ class ComponentWorker {
 
     private int parseHelper(String str, GameActivity ga){
         Cursor queryResult;
-        int id, imageResource_id;
+        int id, img_res_id;
         String image;
 
         try{
             id = Integer.parseInt(str.substring(0, str.indexOf(" ")));
         } catch (Exception ex){ id = Integer.parseInt(str);}
 
-        queryResult =  ga.db.rawQuery("select * from sprites where id ="+id+";", null);
+        String query = "select * from sprites where id ="+id+";";
+        queryResult =  ga.db.rawQuery(query, null);
         queryResult.move(1);
         image = queryResult.getString(1);
-        imageResource_id  = ga.getResources().getIdentifier(image, "drawable", ga.getPackageName());
-        return imageResource_id;
+        img_res_id  = ga.getResources().getIdentifier(image,"drawable", ga.getPackageName());
+        return img_res_id;
     }
 }
