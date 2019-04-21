@@ -11,7 +11,7 @@ import android.widget.Button;
 
 import java.io.ObjectInputStream;
 
-public class MainMenu extends AppCompatActivity{
+public class ActivityMainMenu extends AppCompatActivity{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +48,14 @@ public class MainMenu extends AppCompatActivity{
 
     public void NewGame(View view) {
         new General().ClickEvent(this); // click sound
-        startActivity(new Intent(this, GameActivity.class));
+        startActivity(new Intent(this, ActivityGame.class));
     }
 
 
 
     public void ContinueGame(View view) {
         new General().ClickEvent(this); //click sound
-        Intent i = new Intent(this, GameActivity.class);
+        Intent i = new Intent(this, ActivityGame.class);
         i.putExtra("load save", true);
         startActivity(i);
     }
@@ -63,7 +63,7 @@ public class MainMenu extends AppCompatActivity{
 
 
     public void OpenSettings(View view) {
-        startActivity(new Intent(this, Settings.class));
+        startActivity(new Intent(this, ActivitySettings.class));
     }
 
 
@@ -78,7 +78,7 @@ public class MainMenu extends AppCompatActivity{
 
     public void ShowAbout(View view) {
         new General().ClickEvent(this); // click sound
-        startActivity(new Intent(this, AboutActivity.class));
+        startActivity(new Intent(this, ActivityAbout.class));
     }
 
 

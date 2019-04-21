@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".GameActivity"
+    tools:context=".ActivityGame"
     android:onClick="next"
     android:id="@+id/back">
 
@@ -56,7 +56,7 @@
         android:scaleType="fitXY"
         android:visibility="invisible"/>
 
-    <EditText
+    <com.novelist.mylifenovel.TypeWriter
         android:id="@+id/output"
         android:layout_width="600dp"
         android:layout_height="86dp"

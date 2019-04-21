@@ -6,8 +6,14 @@ import android.view.View;
 
 class ComponentWorker {
 
-    public void initComponents(GameActivity ga){
-        ga.output = ga.findViewById(R.id.output);
+    ActivityGame ga;
+    ComponentWorker(ActivityGame activity){
+        ga = activity;
+    }
+
+    boolean animatedText = true;
+
+    public void initComponents(){
         ga.says = ga.findViewById(R.id.says);
         ga.sprite1 = ga.findViewById(R.id.sprite1);
         ga.sprite2 = ga.findViewById(R.id.sprite2);
@@ -25,14 +31,24 @@ class ComponentWorker {
         ga.hideUI = ga.findViewById(R.id.hideElements);
         ga.backShot = ga.findViewById(R.id.backShot);
         ga.burgerMenu = ga.findViewById(R.id.showOrHideAll);
+        ga.output = ga.findViewById(R.id.output);
 
         // init text sizes
         ga.output.setTextSize(TypedValue.COMPLEX_UNIT_SP, new DataSettingsClass().getTextSize(ga));
         ga.says.setTextSize(TypedValue.COMPLEX_UNIT_SP, new DataSettingsClass().getTextSize(ga));
+
+        // text speed
+        int textSpeed = new DataSettingsClass().getTextSpeed(ga);
+        if (textSpeed == 0)
+            animatedText = false;
+            else {
+                ga.output.setCharacterDelay(textSpeed*3);
+                animatedText = true;
+            }
     }
 
 
-    public void putText(String str, GameActivity ga){
+    public void putText(String str){
         ga.hideUI.setVisibility(View.VISIBLE);
 
         // choice `#(n1)/(n2)`
@@ -64,15 +80,17 @@ class ComponentWorker {
         // GoTo choice `<n>`
         if ((str.charAt(0)) == '<') {
             int choice = Integer.parseInt(str.substring(str.indexOf("<") + 1, str.indexOf(">")));
-            ga.applyQuery("select * from "+GameActivity.day+" where choice = " + choice + ";");
+            ga.applyQuery("select * from "+ ActivityGame.day+" where choice = " + choice + ";");
 
             str = str.substring(str.indexOf(">") + 1);
         }
 
-        ga.output.setText(str);
+        if (animatedText) ga.output.animateText(str);
+            else ga.output.setText(str);
+
     }
 
-    public void putSays(String str, GameActivity ga){
+    public void putSays(String str){
         if (str == null) {
             ga.says.setText("");
             ga.says.setVisibility(View.INVISIBLE);
@@ -91,7 +109,7 @@ class ComponentWorker {
         ga.says.setText(name);
     }
 
-    public void putSprites(String str, GameActivity ga) {
+    public void putSprites(String str) {
         if (str == null) {
             ga.sprite1.setVisibility(View.INVISIBLE);
             ga.sprite2.setVisibility(View.INVISIBLE);
@@ -102,7 +120,7 @@ class ComponentWorker {
         // one sprite
         if (str.matches("[0-9]+")) {
             ga.sprite1.setVisibility(View.VISIBLE);
-            ga.sprite1.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite1.setBackgroundResource(parseHelper(str));
         }
 
         // two sprites
@@ -110,9 +128,9 @@ class ComponentWorker {
             ga.sprite1.setVisibility(View.VISIBLE);
             ga.sprite2.setVisibility(View.VISIBLE);
 
-            ga.sprite1.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite1.setBackgroundResource(parseHelper(str));
             str = str.substring(0, str.indexOf(" ")+1);
-            ga.sprite2.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite2.setBackgroundResource(parseHelper(str));
         }
 
         // three sprites
@@ -121,15 +139,15 @@ class ComponentWorker {
             ga.sprite2.setVisibility(View.VISIBLE);
             ga.sprite3.setVisibility(View.VISIBLE);
 
-            ga.sprite1.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite1.setBackgroundResource(parseHelper(str));
             str = str.substring(0, str.indexOf(" ")+1);
-            ga.sprite2.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite2.setBackgroundResource(parseHelper(str));
             str = str.substring(0, str.indexOf(" ")+1);
-            ga.sprite3.setBackgroundResource(parseHelper(str, ga));
+            ga.sprite3.setBackgroundResource(parseHelper(str));
         }
     }
 
-    public void putBG(String str, GameActivity ga){
+    public void putBG(String str){
         Cursor queryResult;
         int id, imgRes_id;
         String image;
@@ -148,7 +166,7 @@ class ComponentWorker {
     }
 
     private int musicPlaying;
-    public void putMusic(String str, GameActivity ga){
+    public void putMusic(String str){
         int id = Integer.parseInt(str);
 
         if (id == musicPlaying) return;
@@ -166,7 +184,7 @@ class ComponentWorker {
         MusicPlayer.startMusic(res_id, ga);
     }
 
-    public void startPlayingMusic(GameActivity ga){
+    public void startPlayingMusic(){
         String query = "select * from music where id ="+musicPlaying+";";
         Cursor queryResult =  ga.db.rawQuery(query, null);
         queryResult.move(1);
@@ -177,7 +195,7 @@ class ComponentWorker {
 
 
 
-    private int parseHelper(String str, GameActivity ga){
+    private int parseHelper(String str){
         Cursor queryResult;
         int id, img_res_id;
         String image;

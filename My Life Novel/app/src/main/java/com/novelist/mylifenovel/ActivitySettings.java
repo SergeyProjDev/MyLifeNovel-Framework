@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 
 
-public class Settings extends AppCompatActivity {
+public class ActivitySettings extends AppCompatActivity {
 
     // choice {small, medium, big} text
     ArrayList<TextView> textSizes;
@@ -21,6 +21,7 @@ public class Settings extends AppCompatActivity {
     // components
     protected SeekBar volumeClickLevel;
     protected SeekBar volumeMusicLevel;
+    protected SeekBar textSpeed;
 
 
 
@@ -38,21 +39,24 @@ public class Settings extends AppCompatActivity {
             );
         volumeClickLevel = findViewById(R.id.volume2);
         volumeMusicLevel = findViewById(R.id.volume);
+        textSpeed = findViewById(R.id.textSpeed);
 
         // dynamic listeners
         new SettingsDynamicVolumeChange(this).setForMusic(volumeMusicLevel);
         new SettingsDynamicVolumeChange(this).setForClick(volumeClickLevel);
 
-
-        volumeClickLevel.setProgress(new DataSettingsClass().getClickVol(this)); // click lvl
-        volumeMusicLevel.setProgress(new DataSettingsClass().getMusicVol(this)); // music lvl
-
         // text size make selected bold
         switch (new DataSettingsClass().getTextSize(this)){
-            case 12: makeItBold(textSizes.get(0));
-            case 16: makeItBold(textSizes.get(1));
-            case 18: makeItBold(textSizes.get(2));
+            case DataSettingsClass.TEXT_SMALL: makeItBold(textSizes.get(0)); break;
+            case DataSettingsClass.TEXT_MEDIUM:makeItBold(textSizes.get(1)); break;
+            case DataSettingsClass.TEXT_BIG:   makeItBold(textSizes.get(2)); break;
         }
+
+        // seekBar progress
+        volumeClickLevel.setProgress(new DataSettingsClass().getClickVol(this)); // click lvl
+        volumeMusicLevel.setProgress(new DataSettingsClass().getMusicVol(this)); // music lvl
+        textSpeed.setProgress(100-new DataSettingsClass().getTextSpeed(this)); // text speed
+
     }
 
 
@@ -62,6 +66,7 @@ public class Settings extends AppCompatActivity {
         new DataSettingsClass().setClickVol(volumeClickLevel.getProgress(), this); // mus lvl
         new DataSettingsClass().setMusicVol(volumeMusicLevel.getProgress(), this); // click lvl
         new DataSettingsClass().setTextSize(choicedText, this); // text size
+        new DataSettingsClass().setTextSpeed(textSpeed.getProgress(), this); // text speed
 
         GoBack(null);
     }
@@ -79,7 +84,6 @@ public class Settings extends AppCompatActivity {
 
     private void makeItBold(TextView tv){
         new SettingsDynamicVolumeChange(this).makeClick(volumeClickLevel); // click special sound
-
         int i = 0;
         for (TextView textSize:textSizes) {
             if (tv.getText().equals(textSize.getText())) {

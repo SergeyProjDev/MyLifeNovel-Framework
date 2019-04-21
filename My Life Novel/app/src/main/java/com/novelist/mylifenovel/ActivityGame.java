@@ -8,7 +8,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-public class GameActivity extends AppCompatActivity {
+public class ActivityGame extends AppCompatActivity {
 
     /* menu btns */
     ImageView menuBackground;
@@ -36,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
     String currentQuery;
 
     /* output controls */
-    EditText output;
+    TypeWriter output;
     TextView says;
     ImageView sprite1;
     ImageView sprite2;
@@ -71,8 +70,8 @@ public class GameActivity extends AppCompatActivity {
         new General().MakeFullscreen(this);
 
         // init helper class & init components
-        screen = new ComponentWorker();
-        screen.initComponents(this);
+        screen = new ComponentWorker(this);
+        screen.initComponents();
 
         // try connect to db
         try {
@@ -106,8 +105,16 @@ public class GameActivity extends AppCompatActivity {
 
     public void next(View view) {
 
+        if (TypeWriter.isPrinting()) {
+            TypeWriter.printAll(output);
+            return;
+        }
+
         // if UI was hidden -> show UI and Return
-        if (UIComponentsVisible) { ShowElements(); return;}
+        if (UIComponentsVisible){
+            ShowElements();
+            return;
+        }
 
         try {
             queryRes.moveToNext();
@@ -118,11 +125,11 @@ public class GameActivity extends AppCompatActivity {
             String music_id = queryRes.getString(5);
             String backgr_id = queryRes.getString(6);
 
-            screen.putText   (text,       this);
-            screen.putSays   (speaker_id, this);
-            screen.putSprites(drawSprites,this);
-            screen.putBG     (backgr_id,  this);
-            screen.putMusic  (music_id,   this);
+            screen.putText   (text);
+            screen.putSays   (speaker_id);
+            screen.putSprites(drawSprites);
+            screen.putBG     (backgr_id);
+            screen.putMusic  (music_id);
 
         } catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();}
     }
@@ -171,13 +178,13 @@ public class GameActivity extends AppCompatActivity {
     public void settings(View view) {
         new General().ClickEvent(this); // click sound
 
-        startActivity(new Intent(this, Settings.class));
+        startActivity(new Intent(this, ActivitySettings.class));
     }
 
     public void home(View view) {
         new General().ClickEvent(this); // click sound
 
-        Intent i = new Intent(this, MainMenu.class);
+        Intent i = new Intent(this, ActivityMainMenu.class);
         i.putExtra("from game", true);
         startActivity(i);
     }
@@ -271,8 +278,8 @@ public class GameActivity extends AppCompatActivity {
     @Override
     protected void onResume(){
         super.onResume();
-        screen.startPlayingMusic(this);
-        screen.initComponents(this);
+        screen.startPlayingMusic();
+        screen.initComponents(); // to confirm changes
     }
 
 }

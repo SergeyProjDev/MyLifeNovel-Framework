@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.novelist.mylifenovel">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!--<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />-->
 
     <application
         android:allowBackup="true"
@@ -11,25 +11,29 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainMenu"
+            android:name=".ActivityLoadingScreen"
             android:screenOrientation="sensorLandscape"
-            android:theme="@style/AppTheme">
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                    <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".Settings"
-            android:screenOrientation="sensorLandscape"/>
+            android:name=".ActivityMainMenu"
+            android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".GameActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:name=".ActivitySettings"
+            android:screenOrientation="sensorLandscape" />
         <activity
-            android:name=".AboutActivity"
-            android:screenOrientation="sensorLandscape"/>
+            android:name=".ActivityGame"
+            android:screenOrientation="sensorLandscape" />
+        <activity
+            android:name=".ActivityAbout"
+            android:screenOrientation="sensorLandscape" />
     </application>
 
 </manifest>

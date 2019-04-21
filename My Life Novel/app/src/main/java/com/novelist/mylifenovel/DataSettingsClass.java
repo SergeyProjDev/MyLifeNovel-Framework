@@ -9,13 +9,20 @@ import android.content.SharedPreferences;
 class DataSettingsClass{
 
     // const
-    private final String SETTINGS = "Settings";
+    private final String SETTINGS = "ActivitySettings";
     enum TYPES{ INT, STR, BOOL, FLOAT }
+
+    // text sizes
+    public final static int TEXT_SMALL = 12;
+    public final static int TEXT_MEDIUM = 16;
+    public final static int TEXT_BIG = 18;
+
 
     // new const here
     private final String CLICK_SOUND_EXISTENCE = "ClickExist";
     private final String MUSIC_LEVEL = "MusicLvl";
     private final String TEXT_SIZE = "TextSize";
+    private final String TEXT_SPEED = "TextSpeed";
 
 
 
@@ -36,17 +43,28 @@ class DataSettingsClass{
 
 
     public void setTextSize(int choice, Activity a){
-        int textSize = 14;
+        int textSize = TEXT_MEDIUM;
 
-        if (choice == 0) textSize = 12; // small
-        if (choice == 1) textSize = 16; // medium
-        if (choice == 2) textSize = 18; // big
+        if (choice == 0) textSize = TEXT_SMALL; // small
+        if (choice == 1) textSize = TEXT_MEDIUM; // medium
+        if (choice == 2) textSize = TEXT_BIG; // big
 
         save(TEXT_SIZE, textSize, a);
     }
     public int getTextSize(Activity a){
-        return load(TEXT_SIZE, 14, TYPES.INT, a);
+        return load(TEXT_SIZE, TEXT_MEDIUM, TYPES.INT, a);
     }
+
+
+    public void setTextSpeed(int speed, Activity a){
+        int speedCounted = 100-speed;
+        save(TEXT_SPEED, speedCounted, a);
+    }
+    public int getTextSpeed(Activity a){
+        return load(TEXT_SPEED, 50, TYPES.INT, a);
+    }
+
+
 
 
 
