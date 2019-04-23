@@ -12,6 +12,7 @@ class ComponentWorker {
     }
 
     boolean animatedText = true;
+    private int musicPlaying;
 
     public void initComponents(){
         ga.says = ga.findViewById(R.id.says);
@@ -24,7 +25,6 @@ class ComponentWorker {
         ga.choice2Sprite = ga.findViewById(R.id.choice2Sprite);
         ga.choice2Text = ga.findViewById(R.id.choice2Text);
         ga.backGr = ga.findViewById(R.id.back);
-        ga.save = ga.findViewById(R.id.saveBtn);
         ga.toMenu = ga.findViewById(R.id.homeBtn);
         ga.settings = ga.findViewById(R.id.settingsBtn);
         ga.menuBackground = ga.findViewById(R.id.background);
@@ -89,7 +89,6 @@ class ComponentWorker {
             else ga.output.setText(str);
 
     }
-
     public void putSays(String str){
         if (str == null) {
             ga.says.setText("");
@@ -108,7 +107,6 @@ class ComponentWorker {
         ga.says.setVisibility(View.VISIBLE);
         ga.says.setText(name);
     }
-
     public void putSprites(String str) {
         if (str == null) {
             ga.sprite1.setVisibility(View.INVISIBLE);
@@ -146,7 +144,6 @@ class ComponentWorker {
             ga.sprite3.setBackgroundResource(parseHelper(str));
         }
     }
-
     public void putBG(String str){
         Cursor queryResult;
         int id, imgRes_id;
@@ -164,8 +161,6 @@ class ComponentWorker {
             ga.backGr.setBackgroundResource(imgRes_id);
         }
     }
-
-    private int musicPlaying;
     public void putMusic(String str){
         int id = Integer.parseInt(str);
 
@@ -184,6 +179,7 @@ class ComponentWorker {
         MusicPlayer.startMusic(res_id, ga);
     }
 
+
     public void startPlayingMusic(){
         String query = "select * from music where id ="+musicPlaying+";";
         Cursor queryResult =  ga.db.rawQuery(query, null);
@@ -194,21 +190,16 @@ class ComponentWorker {
     }
 
 
-
     private int parseHelper(String str){
-        Cursor queryResult;
-        int id, img_res_id;
-        String image;
-
+        int id;
         try{
             id = Integer.parseInt(str.substring(0, str.indexOf(" ")));
-        } catch (Exception ex){ id = Integer.parseInt(str);}
-
+        } catch (Exception ignored){
+            id = Integer.parseInt(str);
+        }
         String query = "select * from sprites where id ="+id+";";
-        queryResult =  ga.db.rawQuery(query, null);
+        Cursor queryResult =  ga.db.rawQuery(query, null);
         queryResult.move(1);
-        image = queryResult.getString(1);
-        img_res_id  = ga.getResources().getIdentifier(image,"drawable", ga.getPackageName());
-        return img_res_id;
+        return ga.getResources().getIdentifier(queryResult.getString(1),"drawable", ga.getPackageName());
     }
 }

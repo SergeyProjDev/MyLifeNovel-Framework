@@ -1,7 +1,6 @@
 package com.novelist.mylifenovel;
 
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SeekBar;
@@ -12,7 +11,7 @@ import java.util.Arrays;
 
 
 
-public class ActivitySettings extends AppCompatActivity {
+public class ActivitySettings extends General {
 
     // choice {small, medium, big} text
     ArrayList<TextView> textSizes;
@@ -29,7 +28,7 @@ public class ActivitySettings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        new General().MakeFullscreen(this);
+        MakeFullscreen(this);
 
         // init
         textSizes = new ArrayList<>(Arrays.asList(
@@ -61,18 +60,18 @@ public class ActivitySettings extends AppCompatActivity {
 
 
     public void SaveSettings(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
 
         new DataSettingsClass().setClickVol(volumeClickLevel.getProgress(), this); // mus lvl
         new DataSettingsClass().setMusicVol(volumeMusicLevel.getProgress(), this); // click lvl
         new DataSettingsClass().setTextSize(choicedText, this); // text size
         new DataSettingsClass().setTextSpeed(textSpeed.getProgress(), this); // text speed
 
-        GoBack(null);
+        GoBack();
     }
 
-    public void GoBack(View view) {
-        new General().ClickEvent(this); // click sound
+    public void GoBack() {
+        ClickEvent(this); // click sound
         super.onBackPressed();
     }
 
@@ -94,22 +93,5 @@ public class ActivitySettings extends AppCompatActivity {
                     textSize.setTypeface(null,  Typeface.NORMAL);
             i++;
         }
-    }
-
-
-
-    @Override
-    protected void onPause() {
-        try{
-            super.onPause();
-            MusicPlayer.mediaPlayer.stop();
-            MusicPlayer.mediaPlayer.release();
-        }catch (Exception ignored){}
-    }
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        MusicPlayer.startMusic(R.raw.menu_music, this);
     }
 }

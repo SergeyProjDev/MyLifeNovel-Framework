@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -17,11 +16,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 
-public class ActivityGame extends AppCompatActivity {
+public class ActivityGame extends General {
 
     /* menu btns */
     ImageView menuBackground;
-    ImageView save;
     ImageView toMenu;
     ImageView settings;
     ImageView backShot;
@@ -67,7 +65,7 @@ public class ActivityGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        new General().MakeFullscreen(this);
+        MakeFullscreen(this);
 
         // init helper class & init components
         screen = new ComponentWorker(this);
@@ -88,14 +86,13 @@ public class ActivityGame extends AppCompatActivity {
 
         // if game loaded (deserialize)
         try{
-            if (getIntent().getExtras().getBoolean("load save")){
+            if (getIntent().getExtras().getBoolean("load")){
                 DataSQLClass d = (DataSQLClass) new ObjectInputStream(getBaseContext()
                                                  .openFileInput("data.dat")).readObject();
                 applyQuery(d.sqlquery);
                 queryRes.move(d.counter);
             }
-        }catch (Exception ignored){}
-
+        }catch (Exception ignored){ }
 
         // show first shot
         next(null);
@@ -131,24 +128,24 @@ public class ActivityGame extends AppCompatActivity {
             screen.putBG     (backgr_id);
             screen.putMusic  (music_id);
 
-        } catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();}
+        } catch (Exception ex){
+            Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show();
+        }
     }
 
 
 
     //buttons events
     public void showOrHide(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
 
         show = !show;
         if (show){
-            save.setVisibility(View.VISIBLE);
             toMenu.setVisibility(View.VISIBLE);
             settings .setVisibility(View.VISIBLE);
             menuBackground.setVisibility(View.VISIBLE);
         }
         else{
-            save.setVisibility(View.INVISIBLE);
             toMenu.setVisibility(View.INVISIBLE);
             settings .setVisibility(View.INVISIBLE);
             menuBackground.setVisibility(View.INVISIBLE);
@@ -156,33 +153,12 @@ public class ActivityGame extends AppCompatActivity {
 
     }
 
-
-
-    public void save(View view) {
-        new General().ClickEvent(this); // click sound
-
-        DataSQLClass d = new DataSQLClass();
-        d.sqlquery = currentQuery;
-        d.counter = queryRes.getPosition();
-        try{
-            FileOutputStream fos = getBaseContext().openFileOutput("data.dat", Context.MODE_PRIVATE);
-            ObjectOutputStream os = new ObjectOutputStream(fos);
-            os.writeObject(d);
-            os.close();
-            fos.close();
-            showOrHide(null);
-        }
-        catch (Exception ex){ Toast.makeText(this, ex.getMessage(), Toast.LENGTH_LONG).show(); }
-    }
-
     public void settings(View view) {
-        new General().ClickEvent(this); // click sound
-
         startActivity(new Intent(this, ActivitySettings.class));
     }
 
     public void home(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
 
         Intent i = new Intent(this, ActivityMainMenu.class);
         i.putExtra("from game", true);
@@ -192,6 +168,7 @@ public class ActivityGame extends AppCompatActivity {
 
 
     public void onBackPressed() {
+        saveGame();
         home(null);
     }
 
@@ -242,7 +219,6 @@ public class ActivityGame extends AppCompatActivity {
 
         menuBackground.setVisibility(View.INVISIBLE);
         burgerMenu.setVisibility(View.INVISIBLE);
-        save.setVisibility(View.INVISIBLE);
         toMenu.setVisibility(View.INVISIBLE);
         settings.setVisibility(View.INVISIBLE);
 
@@ -267,12 +243,15 @@ public class ActivityGame extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        try{
-            super.onPause();
-            MusicPlayer.mediaPlayer.stop();
-            MusicPlayer.mediaPlayer.release();
-            save(null);
-        }catch (Exception ignored){}
+         super.onPause();
+         try {
+             MusicPlayer.mediaPlayer.stop();
+             MusicPlayer.mediaPlayer.release();
+         }catch (Exception ignored){ }
+
+         try {
+            saveGame();
+         }catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show(); }
     }
 
     @Override
@@ -282,4 +261,17 @@ public class ActivityGame extends AppCompatActivity {
         screen.initComponents(); // to confirm changes
     }
 
+    private void saveGame(){
+        DataSQLClass d = new DataSQLClass();
+        d.sqlquery = currentQuery;
+        d.counter = queryRes.getPosition();
+        try{
+            FileOutputStream fos = getBaseContext().openFileOutput("data.dat", Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(d);
+            os.close();
+            fos.close();
+        }
+        catch (Exception ex){ Toast.makeText(this, ex.toString(), Toast.LENGTH_LONG).show(); }
+    }
 }

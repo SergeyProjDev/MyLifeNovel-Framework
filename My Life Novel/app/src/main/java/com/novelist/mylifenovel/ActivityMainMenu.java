@@ -4,20 +4,19 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import java.io.ObjectInputStream;
 
-public class ActivityMainMenu extends AppCompatActivity{
+public class ActivityMainMenu extends General {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        new General().MakeFullscreen(this);
+        MakeFullscreen(this);
 
         // draw resume png
         try{
@@ -29,7 +28,7 @@ public class ActivityMainMenu extends AppCompatActivity{
         // start music
         try {
             MusicPlayer.startMusic(R.raw.menu_music, this);
-        } catch (Exception ignored){}
+        } catch (Exception ignored){ }
 
 
         // enable loadBtn (if file with saves don`t exist)
@@ -47,16 +46,16 @@ public class ActivityMainMenu extends AppCompatActivity{
 
 
     public void NewGame(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
         startActivity(new Intent(this, ActivityGame.class));
     }
 
 
 
     public void ContinueGame(View view) {
-        new General().ClickEvent(this); //click sound
+        ClickEvent(this); //click sound
         Intent i = new Intent(this, ActivityGame.class);
-        i.putExtra("load save", true);
+        i.putExtra("load", true);
         startActivity(i);
     }
 
@@ -70,38 +69,25 @@ public class ActivityMainMenu extends AppCompatActivity{
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void ExitGame(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
         this.finishAffinity();
     }
 
 
 
     public void ShowAbout(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
         startActivity(new Intent(this, ActivityAbout.class));
     }
 
 
     public void ResumeGame(View view) {
-        new General().ClickEvent(this); // click sound
+        ClickEvent(this); // click sound
         super.onBackPressed();
     }
 
-
-
     @Override
-    protected void onPause() {
-        try{
-            super.onPause();
-            MusicPlayer.mediaPlayer.stop();
-            MusicPlayer.mediaPlayer.release();
-        }catch (Exception ex){}
-    }
-
-
-    @Override
-    protected void onResume(){
-        super.onResume();
-        MusicPlayer.startMusic(R.raw.menu_music, this);
+    public void onBackPressed(){
+        ClickEvent(this);
     }
 }

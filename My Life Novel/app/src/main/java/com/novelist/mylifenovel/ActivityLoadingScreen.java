@@ -17,4 +17,16 @@ public class ActivityLoadingScreen extends AppCompatActivity {
         startActivity(new Intent(this, ActivityMainMenu.class));
         finish();
     }
+
+    @Override
+    public void startActivity(Intent intent) {
+        super.startActivity(intent);
+        overridePendingTransition(R.anim.activity_open_enter, 0);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(R.anim.activity_close_bottom,0);
+    }
 }

@@ -13,7 +13,9 @@ public class MusicPlayer extends Activity {
     public static void startMusic(int id, Activity activity){
 
         try {
-            mediaPlayer.stop();
+            if (mediaPlayer.isPlaying()){
+                mediaPlayer.stop();
+            }
         }catch(Exception ignored){}
 
         try{
@@ -23,5 +25,6 @@ public class MusicPlayer extends Activity {
             mediaPlayer.setVolume(volume, volume);
             mediaPlayer.start();
         }catch (Exception ignored){}
+
     }
 }
