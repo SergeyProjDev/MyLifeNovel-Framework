@@ -21,6 +21,7 @@ public class ActivitySettings extends General {
     protected SeekBar volumeClickLevel;
     protected SeekBar volumeMusicLevel;
     protected SeekBar textSpeed;
+    protected SeekBar transitionTime;
 
 
 
@@ -39,6 +40,7 @@ public class ActivitySettings extends General {
         volumeClickLevel = findViewById(R.id.volume2);
         volumeMusicLevel = findViewById(R.id.volume);
         textSpeed = findViewById(R.id.textSpeed);
+        transitionTime = findViewById(R.id.autoContinue);
 
         // dynamic listeners
         new SettingsDynamicVolumeChange(this).setForMusic(volumeMusicLevel);
@@ -55,7 +57,7 @@ public class ActivitySettings extends General {
         volumeClickLevel.setProgress(new DataSettingsClass().getClickVol(this)); // click lvl
         volumeMusicLevel.setProgress(new DataSettingsClass().getMusicVol(this)); // music lvl
         textSpeed.setProgress(100-new DataSettingsClass().getTextSpeed(this)); // text speed
-
+        transitionTime.setProgress(new DataSettingsClass().getTransitionTime(this)); // transition time
     }
 
 
@@ -66,6 +68,7 @@ public class ActivitySettings extends General {
         new DataSettingsClass().setMusicVol(volumeMusicLevel.getProgress(), this); // click lvl
         new DataSettingsClass().setTextSize(choicedText, this); // text size
         new DataSettingsClass().setTextSpeed(textSpeed.getProgress(), this); // text speed
+        new DataSettingsClass().setTransitionTime(transitionTime.getProgress(), this); // auto transition
 
         GoBack();
     }

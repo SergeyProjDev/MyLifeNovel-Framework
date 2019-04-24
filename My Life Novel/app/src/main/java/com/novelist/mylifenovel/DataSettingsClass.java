@@ -10,6 +10,9 @@ class DataSettingsClass{
 
     // const
     private final String SETTINGS = "ActivitySettings";
+
+
+
     enum TYPES{ INT, STR, BOOL, FLOAT }
 
     // text sizes
@@ -23,6 +26,7 @@ class DataSettingsClass{
     private final String MUSIC_LEVEL = "MusicLvl";
     private final String TEXT_SIZE = "TextSize";
     private final String TEXT_SPEED = "TextSpeed";
+    private final String TRANSITION_TIME = "AutoContinue";
 
 
 
@@ -65,6 +69,12 @@ class DataSettingsClass{
     }
 
 
+    public void setTransitionTime(int time, Activity a) {
+        save(TRANSITION_TIME, time, a);
+    }
+    public int getTransitionTime(Activity a){
+        return load(TRANSITION_TIME, 50, TYPES.INT, a);
+    }
 
 
 

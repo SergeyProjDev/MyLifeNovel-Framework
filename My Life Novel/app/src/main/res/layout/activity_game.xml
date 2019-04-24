@@ -67,7 +67,7 @@
         android:layout_marginBottom="8dp"
         android:background="@drawable/text_back"
         android:focusable="false"
-        android:gravity="top"
+        android:gravity="fill_horizontal"
         android:inputType="textMultiLine"
         android:paddingLeft="10dp"
         android:paddingTop="10dp"

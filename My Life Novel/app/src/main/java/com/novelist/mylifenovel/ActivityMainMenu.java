@@ -26,9 +26,9 @@ public class ActivityMainMenu extends General {
 
 
         // start music
-        try {
-            MusicPlayer.startMusic(R.raw.menu_music, this);
-        } catch (Exception ignored){ }
+        /*
+        MusicPlayer.startMusic(R.raw.menu_music, this);
+        */
 
 
         // enable loadBtn (if file with saves don`t exist)

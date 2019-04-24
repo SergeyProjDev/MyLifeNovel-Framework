@@ -41,10 +41,11 @@ class ComponentWorker {
         int textSpeed = new DataSettingsClass().getTextSpeed(ga);
         if (textSpeed == 0)
             animatedText = false;
-            else {
-                ga.output.setCharacterDelay(textSpeed*3);
-                animatedText = true;
-            }
+        else {
+            ga.output.setCharacterDelay(textSpeed*3);
+            ga.output.setAutoTransitionTime(new DataSettingsClass().getTransitionTime(ga));
+            animatedText = true;
+        }
     }
 
 
@@ -85,7 +86,7 @@ class ComponentWorker {
             str = str.substring(str.indexOf(">") + 1);
         }
 
-        if (animatedText) ga.output.animateText(str);
+        if (animatedText) ga.output.animateText(str, ga);
             else ga.output.setText(str);
 
     }

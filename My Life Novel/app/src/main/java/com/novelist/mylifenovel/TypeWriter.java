@@ -2,6 +2,7 @@ package com.novelist.mylifenovel;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.util.AttributeSet;
 import android.widget.EditText;
@@ -15,7 +16,8 @@ public class TypeWriter extends EditText {
     private int mIndex;
     private long mDelay = 100;
     private Handler mHandler = new Handler();
-
+    private int autoTransitionTime;
+    private CountDownTimer cdt;
 
     public TypeWriter(Context context) {
         super(context);
@@ -32,14 +34,28 @@ public class TypeWriter extends EditText {
                 setText(mText.subSequence(0, mIndex++));
                 mHandler.postDelayed(characterAdder, mDelay);
             }
-            else printing = false;
+            else {
+                printing = false;
+
+                try {cdt.cancel();} catch (Exception ignored) {}
+                cdt = new CountDownTimer(autoTransitionTime, autoTransitionTime) {
+                        public void onTick(long millisUntilFinished) { }
+                        public void onFinish() {
+                            gameA.next(null);
+                        }
+                    };
+                cdt.start();
+            }
+
         }
     };
 
-    public void animateText(final CharSequence text) {
+    ActivityGame gameA;
+    public void animateText(final CharSequence text, ActivityGame activity) {
         mText = text;
         mIndex = 0;
         printing = true;
+        gameA = activity;
 
         setText("");
         mHandler.removeCallbacks(characterAdder);
@@ -50,13 +66,16 @@ public class TypeWriter extends EditText {
         mDelay = millis;
     }
 
+    public void setAutoTransitionTime(int time){
+        autoTransitionTime = time * 100;
+    }
+
     public static boolean isPrinting(){
         return printing;
     }
 
     public static void printAll(EditText output){
         printing = false;
-
         output.setText(mText);
     }
 }
