@@ -48,16 +48,16 @@ public class General extends AppCompatActivity {
     @Override
     public void startActivity(Intent intent) {
         try{
-            super.startActivity(intent);
             overridePendingTransition(R.anim.activity_open_enter, 0);
+            super.startActivity(intent);
         } catch (Exception ignored){}
     }
 
     @Override
     public void finish() {
         try{
-            super.finish();
             overridePendingTransition(R.anim.activity_close_bottom,0);
+            super.finish();
         } catch (Exception ignored){}
     }
 

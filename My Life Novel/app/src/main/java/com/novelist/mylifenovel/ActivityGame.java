@@ -257,6 +257,7 @@ public class ActivityGame extends General {
     @Override
     protected void onResume(){
         super.onResume();
+
         screen.startPlayingMusic();
         screen.initComponents(); // to confirm changes
     }

@@ -11,13 +11,17 @@ import android.widget.EditText;
 @SuppressLint("AppCompatCustomView")
 public class TypeWriter extends EditText {
 
-    private static boolean printing = false;
-    private static CharSequence mText;
-    private int mIndex;
-    private long mDelay = 100;
-    private Handler mHandler = new Handler();
-    private int autoTransitionTime;
-    private CountDownTimer cdt;
+
+    protected static CharSequence mText;
+    protected int mIndex;
+    protected long mDelay = 100;
+    protected Handler mHandler = new Handler();
+
+    protected static boolean printing = false;
+    protected int autoTransitionTime;
+    protected CountDownTimer timer;
+    protected ActivityGame gameA;
+
 
     public TypeWriter(Context context) {
         super(context);
@@ -25,6 +29,7 @@ public class TypeWriter extends EditText {
     public TypeWriter(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
+
 
 
     private Runnable characterAdder = new Runnable() {
@@ -36,21 +41,13 @@ public class TypeWriter extends EditText {
             }
             else {
                 printing = false;
-
-                try {cdt.cancel();} catch (Exception ignored) {}
-                cdt = new CountDownTimer(autoTransitionTime, autoTransitionTime) {
-                        public void onTick(long millisUntilFinished) { }
-                        public void onFinish() {
-                            gameA.next(null);
-                        }
-                    };
-                cdt.start();
+                autoTransitionTimer();
             }
 
         }
     };
 
-    ActivityGame gameA;
+
     public void animateText(final CharSequence text, ActivityGame activity) {
         mText = text;
         mIndex = 0;
@@ -72,6 +69,21 @@ public class TypeWriter extends EditText {
 
     public static boolean isPrinting(){
         return printing;
+    }
+
+    private void autoTransitionTimer(){
+        try {
+            timer.cancel();
+        } catch (Exception ignored) {}
+
+        timer = new CountDownTimer(autoTransitionTime, autoTransitionTime) {
+            public void onTick(long millisUntilFinished) { }
+            public void onFinish() {
+                gameA.next(null);
+            }
+        };
+
+        timer.start();
     }
 
     public static void printAll(EditText output){

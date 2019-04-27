@@ -57,7 +57,7 @@
         android:visibility="invisible"/>
 
     <com.novelist.mylifenovel.TypeWriter
-        android:id="@+id/output"
+        android:id="@+id/outputLayout"
         android:layout_width="600dp"
         android:layout_height="86dp"
         android:layout_marginStart="8dp"
@@ -84,7 +84,7 @@
         android:layout_height="280dp"
         android:scaleType="fitXY"
         android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/output"
+        app:layout_constraintBottom_toTopOf="@+id/outputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -100,8 +100,8 @@
         android:background="@drawable/text_name_back"
         android:textAlignment="center"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/output"
-        app:layout_constraintStart_toStartOf="@+id/output"
+        app:layout_constraintBottom_toBottomOf="@+id/outputLayout"
+        app:layout_constraintStart_toStartOf="@+id/outputLayout"
         android:textStyle="bold" />
 
     <ImageView
@@ -227,11 +227,11 @@
         android:layout_height="30dp"
         android:layout_marginBottom="8dp"
         android:onClick="HideElements"
-        app:layout_constraintBottom_toBottomOf="@+id/output"
-        app:layout_constraintEnd_toEndOf="@+id/output"
+        app:layout_constraintBottom_toBottomOf="@+id/outputLayout"
+        app:layout_constraintEnd_toEndOf="@+id/outputLayout"
         app:layout_constraintHorizontal_bias="0.7"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/output"
+        app:layout_constraintStart_toEndOf="@+id/outputLayout"
         app:layout_constraintTop_toBottomOf="@+id/choiceSprite"
         app:srcCompat="@android:drawable/arrow_down_float" />
 

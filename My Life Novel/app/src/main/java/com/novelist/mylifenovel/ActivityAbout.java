@@ -1,5 +1,6 @@
 package com.novelist.mylifenovel;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,4 +19,7 @@ public class ActivityAbout extends General {
         super.onBackPressed();
     }
 
+    public void showResources(View view) {
+        startActivity(new Intent(this, ActivityThanksForMaterials.class));
+    }
 }

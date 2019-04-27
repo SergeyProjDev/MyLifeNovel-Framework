@@ -31,7 +31,7 @@ class ComponentWorker {
         ga.hideUI = ga.findViewById(R.id.hideElements);
         ga.backShot = ga.findViewById(R.id.backShot);
         ga.burgerMenu = ga.findViewById(R.id.showOrHideAll);
-        ga.output = ga.findViewById(R.id.output);
+        ga.output = ga.findViewById(R.id.outputLayout);
 
         // init text sizes
         ga.output.setTextSize(TypedValue.COMPLEX_UNIT_SP, new DataSettingsClass().getTextSize(ga));

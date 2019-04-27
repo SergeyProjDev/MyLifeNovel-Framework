@@ -24,13 +24,6 @@ public class ActivityMainMenu extends General {
                 findViewById(R.id.resume).setVisibility(View.VISIBLE);
         } catch (Exception ignored){ }
 
-
-        // start music
-        /*
-        MusicPlayer.startMusic(R.raw.menu_music, this);
-        */
-
-
         // enable loadBtn (if file with saves don`t exist)
         Button load = findViewById(R.id.continueBtn);
         try{
